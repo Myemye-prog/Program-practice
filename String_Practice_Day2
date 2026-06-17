@@ -1,0 +1,45 @@
+# 11. Count lowercase letters.
+string = "You are the only one for her if you think like this, Then fuck your thinking"
+count=0
+for i in string:
+    if i.islower() and i:
+        count+=1
+print(f"Total lowercase are {count}")
+# 12. Convert string to uppercase.
+upperstring=string.upper()
+print(upperstring)
+# 13. Convert string to lowercase.
+lowerString=string.lower()
+print(lowerString)
+# 14. Capitalize a string.
+CapitalizedString=string.capitalize()
+print(CapitalizedString)
+# 15. Reverse a string.
+for i in range(len(string)-1,0,-1):
+    print(string[i],end="")
+print()
+# 16. Check if a string is a palindrome.
+for i in range(len(string)-1,0,-1):
+    reversed=""+string[i]
+if reversed==string:
+        print("This is a palindrome ")
+else:
+        print("Not a palindrome")
+# 17. Count occurrences of a character.
+string = "You are the only one for her if you think like this,Then fuck your thinking"
+
+freq = {}
+
+for ch in string:
+    freq[ch] = freq.get(ch, 0) + 1
+
+for ch, count in freq.items():
+    print(f"'{ch}' occurs {count} times")
+
+# 18. Find the index of a character.
+print(string.find("l"))
+    
+# 19. Replace a character.
+print(string.replace("You","YOU"))
+# 20. Remove spaces from a string.
+print(string.split())
