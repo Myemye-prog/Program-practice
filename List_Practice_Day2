@@ -1,0 +1,53 @@
+# 11. Largest element
+ls = [12, 32, 2121, 43, 221, 4]
+print(max(ls))
+
+# 12. Smallest element
+print(min(ls))
+
+# 13. Sum of elements
+total = 0
+for i in ls:
+    total += i
+print(total)
+
+# 14. Average of elements
+avg = total / len(ls)
+print(avg)
+
+# 15. Count even numbers
+even = 0
+for i in ls:
+    if i % 2 == 0:
+        even += 1
+print(f"Total even numbers are {even}")
+
+# 16. Count odd numbers
+odd = 0
+for i in ls:
+    if i % 2 != 0:
+        odd += 1
+print(f"Total odd numbers are {odd}")
+
+# 17. Maximum value manually
+max_value = ls[0]
+for i in ls:
+    if i > max_value:
+        max_value = i
+print("Maximum value is:", max_value)
+
+# 18. Minimum value manually
+min_value = ls[0]
+for i in ls:
+    if i < min_value:
+        min_value = i
+print("Minimum value is:", min_value)
+
+# 19. Reverse a list
+for i in range(len(ls) - 1, -1, -1):
+    print(ls[i], end=" ")
+print()
+
+# 20. Sort a list
+ls.sort()
+print(ls)
