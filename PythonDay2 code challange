@@ -1,0 +1,62 @@
+# 11. Calculate the sum of numbers from 1 to 10.
+i=1
+sum=0
+for i in range(11):
+    sum+=i
+print(f"sum of the 1 to 10 is {sum}")
+# 12. Calculate the sum of numbers from 1 to 100.
+i=1
+sum=0
+for i in range(101):
+    sum+=i
+print(f"Sum of 1 to 100 is {sum}")
+# 13. Calculate the sum of even numbers from 1 to 50.
+i=1
+sum=0
+for i in range(51):
+    if i%2==0:
+        sum=sum+i
+print(f"Sum of all even numbers from 1 to 50 is {sum}")
+# 14. Calculate the sum of odd numbers from 1 to 50.
+i=1
+sum=0
+for i in range(51):
+    if i%2!=0:
+        sum=sum+i
+print(f"Sum of all odd numbers from 1 to 50 is {sum}")
+# 15. Find the product of numbers from 1 to 5.
+i=1 
+prod=1
+for i in range(1,6):
+    prod=prod*i
+print(f"Product of  numbers from 1 to 5 is {prod}")
+# 16. Print each character of a string.
+msg="Are you okay"
+for i in range(len(msg)):
+    print(msg[i],end="")
+# 17. Count the number of characters in a string.
+msg="Are you okay"
+count=0
+for i in msg:
+    if i.isalpha():
+        count+=1
+print(f"Total charecters in this {msg} string is {count}")
+# 18. Count vowels in a string.
+msg="Are you okay"
+count=0
+for i in msg:
+    if i in "aeiouAEIOU":
+        count+=1
+print(f"Total owels in this '{msg}' string is {count}")
+# 19. Count consonants in a string.
+msg="Are you okay"
+count=0
+for i in msg:
+    if i not in "aeiouAEIOU" and i !=" ":
+        count+=1
+print(f"Total consonants in this '{msg}' string is {count}")
+# 20. Print each word of a sentence.
+msg="Are you fine today dear!"
+msg=msg.split()
+for i in msg:
+    print(i)
