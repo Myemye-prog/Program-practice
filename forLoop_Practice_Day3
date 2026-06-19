@@ -1,0 +1,64 @@
+ 
+# 21.	Print a multiplication table of 2. 
+# n=2
+# for i in range(1,11):
+#     print(f"{i} X {n} = {i*n}")
+# print()
+
+
+# 22.	Print a multiplication table of 5. 
+# n=5
+# for i in range(1,11):
+#     print(f"{i} X {n} = {i*n}")
+
+
+# 23.	Print a multiplication table of any user-given number. 
+# n=int(input("De re mg ko number douchu de "))
+# for i in range(1,11):
+#     print(f"{i} X {n} = {i*n}")
+# 24.	Print numbers from 1 to N. 
+# n=int(input("Enter any number you want to print "))
+# for i in range(1,n+1):
+#     print(i, end=" ")
+# print()
+
+# 25.	Print numbers from N to 1. 
+# n=int(input("Enter any number you want to print "))
+# for i in range(n,0,-1):
+#     print(i, end=" ")
+
+# 26.	Count how many numbers are divisible by 7 from 1 to 100.
+# count=0
+# for i in range(1,100):
+#     if i%7==0:
+#         count+=1
+# print(count)
+# 27.	Find the largest number in a list. 
+lst=[1,2,43,54,3,412,1,3425,6545,4,12,65,32221,4,5,763,432]
+largest=0
+for i in lst:
+    if i>largest:
+        largest=i
+
+print(largest)
+        
+# 28.	Find the smallest number in a list. 
+lst=[1,2,43,54,-3,412,-1,3425,-6545,4,-12,65,-32221,-4,-5,763,432]
+smallest=lst[0]
+for i in lst:
+    if i<smallest:
+        smallest=i
+print(smallest)
+
+# 29.	Count positive numbers in a list. 
+count=0
+for i in lst:
+    if i>0:
+        count+=1
+print(f"Total positive numbers are in the list is {count}")
+# 30.	Count negative numbers in a list. 
+count=0
+for i in lst:
+    if i<0:
+        count+=1
+print(f"Total positive numbers are in the list is {count}")
