@@ -1,4 +1,4 @@
-single inheritance 
+#single inheritance 
 
 class Vehicle:
     def __init__(self, brand, speed):
