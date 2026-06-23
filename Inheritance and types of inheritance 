@@ -1,1 +1,27 @@
 single inheritance 
+
+class Vehicle:
+    def __init__(self, brand, speed):
+        self.brand = brand
+        self.speed = speed
+    
+    def move(self):
+        return f"{self.brand} is moving at {self.speed} km/h"
+
+class Car(Vehicle):
+    def __init__(self, brand, speed, doors):
+        super().__init__(brand, speed)
+        self.doors = doors
+    
+    def move(self):  # Override
+        return f"🚗 {self.brand} car driving with {self.doors} doors"
+
+class Bike(Vehicle):
+    def move(self):
+        return f"🚲 {self.brand} bike pedaling fast!"
+
+# Test
+car = Car("Toyota", 120, 4)
+bike = Bike("Hero", 40)
+print(car.move())
+print(bike.move())
