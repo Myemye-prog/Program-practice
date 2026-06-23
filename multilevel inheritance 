@@ -1,0 +1,30 @@
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def intro(self):
+        return f"I'm {self.name}, {self.age} years old"
+
+class Employee(Person):
+    def __init__(self, name, age, emp_id, salary):
+        super().__init__(name, age)
+        self.emp_id = emp_id
+        self.salary = salary
+    
+    def get_pay(self):
+        return f"{self.name} earns ${self.salary}"
+
+class Manager(Employee):
+    def __init__(self, name, age, emp_id, salary, team_size):
+        super().__init__(name, age, emp_id, salary)
+        self.team_size = team_size
+    
+    def get_pay(self):  # Override with bonus
+        bonus = self.salary * 0.2
+        return f"Manager {self.name} earns ${self.salary + bonus} (with bonus)"
+
+# Test
+mgr = Manager("Alice", 35, "M001", 80000, 5)
+print(mgr.intro())      # From Person
+print(mgr.get_pay())    # From Manager
