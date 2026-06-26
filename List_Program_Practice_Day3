@@ -1,0 +1,138 @@
+# 🟢 Beginner (1–10)
+#===================
+"""
+# WAP to create a list of 10 numbers and print it.
+list=[1,2,3,4,5,6,7,9,8,10]
+print(list)
+
+# WAP to find the length of a list.
+print(len(list))
+
+# WAP to print the first and last element of a list.
+print(list[0],list[len(list)-1])
+
+length=len(list)-1
+print(list[0],list[length])
+
+print(list[0],list[-1])
+
+list=[1,2,3,4,5,6,7,9,8,10]
+for i in range(len(list)):
+    if i==0 or i==len(list)-1:
+        print(list[i],end=" ")
+print()
+
+# WAP to add an element at the end of a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+list.append(11)
+print(list)
+
+# WAP to insert an element at a specific index.
+list=[1,2,3,4,5,6,7,9,8,10]
+list.insert(4,1000)
+print(list)
+
+# WAP to remove an element from a list using its value.
+list=[1,2,3,4,5,6,7,9,8,10]
+list.remove(1)
+print(list)
+
+# WAP to remove an element using its index.
+list=[1,2,3,4,5,6,7,9,8,10]
+list.pop(len(list)-1)
+print(list)
+
+# WAP to check whether a given number exists in a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+number=int(input("Enter your number "))
+for i in list:
+    if i==number :
+        print(f"Your number {number} is present in the list{list}")
+        break
+print(list)
+
+# WAP to count how many times a given element appears in a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+
+print(list.count(2))
+# WAP to find the sum of all elements in a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+sum=0
+for i in list:
+    sum+=i
+print(f"The sum of all elements in a list is {sum}")
+"""
+# 🟡 Intermediate (11–20)
+# WAP to find the largest element in a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+largest=0
+for i in list:
+    if i>largest:
+        largest=i
+print(largest)
+# WAP to find the smallest element in a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+smallest=list[0]
+for i in list:
+    if i<smallest:
+        smallest=i
+print(smallest)
+# WAP to find the second largest element in a list.
+list=[1,2,3,4,5,6,7,9,8,10]
+#using sort method
+list.sort()
+print("The largest element in a list",list[-1])
+print("The largest element in a list",list[-2])
+#using loop
+list=[1,2,3,4,5,6,7,9,8,10]
+new_list=list.copy()
+largest=list[0]
+second_largest=float("inf")
+for i in list:
+    if i>largest:
+        second_largest=largest
+        largest=i
+    elif i>second_largest and i!=largest:
+        second_largest=i
+print("largest number is", largest)
+print("largest number is", second_largest)
+# WAP to reverse a list without using reverse().
+list=[1,2,3,4,5,6,7,9,8,10]
+print(list)
+for i in range(len(list),0,-1):
+    print(i,end=" ")
+print()
+# WAP to sort a list in ascending order.
+list=[1,2,23,4,5,6,7,39,8,10]
+list.sort()
+print(list)
+# WAP to sort a list in descending order.
+list=[1,2,3,4,5,6,7,9,8,10]
+list.sort(reverse=True)
+print(list)
+# WAP to remove duplicate elements from a list.
+list=[1,1,3,3,5,5,2,9,8,1]
+remove=list[0]
+duplicate=[]
+for i in list:
+    if i not in duplicate:
+        duplicate.append(i)
+print(duplicate)
+# WAP to merge two lists into one.
+list1=[1,1,3,3,5,5,2,9,8,1]
+list2=[1,7,2,3,5,4,2,9,8,1]
+print(list1+list2)
+# WAP to find the average of all numbers in a list.
+list=[1,1,3,3,5,5,2,9,8,1]
+sum=0
+for i in list:
+    sum+=i
+total=len(list)
+print(f"Average of all number is {sum/total}")
+# WAP to create a new list containing only the even numbers from a list.
+list=[1,1,3,3,5,5,2,9,8,1]
+even=[]
+for i in list:
+    if i%2==0:
+        even.append(i)
+print(even)
