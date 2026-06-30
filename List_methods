@@ -1,0 +1,83 @@
+# 🐍 Python Data Structures Practice Sheet (50 Questions)
+# 🟢 Lists
+# Q1. Create a list of 5 fruits and print it
+list=["Apple","Bitroot","Pomegranade","Grapes","Banana"]
+print(list)
+# Q2. Add "Mango" to the end of the list
+list.append("Mango")
+print(list)
+# Q3. Insert "Orange" at index 2
+list.insert(2,"Orange")
+print(list)
+# Q4. Remove "Apple" from the list
+list.remove("Apple")
+print(list)
+# Q5. Print the first and last elements
+print(list[0],list[-1])
+# Q6. Change the second element to "Pineapple"
+list[1]="Pineapple"
+print(list)
+lst = ["Apple", "Banana", "Cherry"]
+lst = [lst[0], "Pineapple", *lst[2:]]
+print(lst)
+# Q7. Find the length of the list
+print(len(list))
+# Q8. Reverse the list
+print(list[::-1])
+# list.reverse()
+# print(list)
+# Q9. Sort a list of numbers
+list=[1,23,53,2,7,6,544,33,6,74,5,45,213,21,34,4,6,4,]
+list.sort()
+print(list)
+# Q10. Check whether "Banana" exists in the list
+list=['Bitroot', 'Orange', 'Pomegranade', 'Grapes', 'Banana', 'Mango']
+if "Banana" in list:
+    print("Banana exist")
+else:
+    print("Banana not exist in the list")
+# Q11. Join two lists
+l1=['Apple', 'Bitroot', 'Orange', 'Pomegranade', 'Grapes', 'Banana', 'Mango']
+l2=[1, 2, 4, 4, 5, 6, 6, 6, 7, 21, 23, 33, 34, 45, 53, 74, 213, 54]
+print(l1+l2)
+# Q12. Remove all duplicate values from a list
+l2=[1, 2, 4, 4, 5, 6, 6, 6, 7, 21, 23, 33, 34, 45, 53, 74, 213, 54]
+l2=sorted(set(l2))
+print(l2)
+
+# BONUS QUESTIONS
+
+# Q13. Find index of "Banana"
+list=['Apple', 'Bitroot', 'Orange', 'Pomegranade', 'Grapes', 'Banana', 'Mango']
+for i in range(len(list)):
+    if list[i]=="Banana":
+        print("The index of banana is ",i)
+
+# Q14. Count how many times "Apple" appears
+print(list.count("Apple"))
+# Q15. Clear all elements from list
+# list.clear()
+print(list)
+# Q16. Copy a list into another list
+l2=[]
+l2=list.copy()
+print(l2)
+# Q17. Pop last element and print it
+list.pop()
+print(list)
+# Q18. Pop element at index 2
+list.pop(2)
+print(list)
+# Q19. Check if list is empty
+if len(list)==0:
+    print("The list is empty")
+else:
+    print("The list is not an empty")
+# Q20. Print even numbers from 1 to 10
+num=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+for i in num:
+    if i%2==0:
+        print(i,end=" ")
+        print()
+    else:
+        print(i,end=" ")
