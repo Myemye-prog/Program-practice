@@ -1,0 +1,210 @@
+# =====================================================
+#      PYTHON LOGIC BUILDING PRACTICE (20 Programs)
+#      Concepts: if, else, for loop
+# =====================================================
+
+# -----------------------------------------------------
+# 1. Print Numbers from 1 to 10
+# -----------------------------------------------------
+print("1. Print Numbers from 1 to 10")
+for i in range(1, 11):
+    print(i)
+
+# -----------------------------------------------------
+# 2. Print Even Numbers from 1 to 20
+# -----------------------------------------------------
+print("\n2. Even Numbers")
+for i in range(1, 21):
+    if i % 2 == 0:
+        print(i)
+
+# -----------------------------------------------------
+# 3. Print Odd Numbers from 1 to 20
+# -----------------------------------------------------
+print("\n3. Odd Numbers")
+for i in range(1, 21):
+    if i % 2 != 0:
+        print(i)
+
+# -----------------------------------------------------
+# 4. Sum of Numbers from 1 to 10
+# -----------------------------------------------------
+print("\n4. Sum of Numbers")
+total = 0
+for i in range(1, 11):
+    total += i
+print(total)
+
+# -----------------------------------------------------
+# 5. Multiplication Table
+# -----------------------------------------------------
+print("\n5. Multiplication Table")
+num = 5
+for i in range(1, 11):
+    print(num, "x", i, "=", num * i)
+
+# -----------------------------------------------------
+# 6. Count Even and Odd Numbers
+# -----------------------------------------------------
+print("\n6. Count Even and Odd")
+even = 0
+odd = 0
+
+for i in range(1, 21):
+    if i % 2 == 0:
+        even += 1
+    else:
+        odd += 1
+
+print("Even:", even)
+print("Odd :", odd)
+
+# -----------------------------------------------------
+# 7. Find Largest Number
+# -----------------------------------------------------
+print("\n7. Largest Number")
+largest = 0
+
+for i in [12, 45, 8, 90, 32]:
+    if i > largest:
+        largest = i
+
+print(largest)
+
+# -----------------------------------------------------
+# 8. Find Smallest Number
+# -----------------------------------------------------
+print("\n8. Smallest Number")
+numbers = [12, 45, 8, 90, 32]
+smallest = numbers[0]
+
+for i in numbers:
+    if i < smallest:
+        smallest = i
+
+print(smallest)
+
+# -----------------------------------------------------
+# 9. Count Positive and Negative Numbers
+# -----------------------------------------------------
+print("\n9. Positive and Negative Count")
+positive = 0
+negative = 0
+
+for i in [5, -2, 8, -6, 10, -1]:
+    if i >= 0:
+        positive += 1
+    else:
+        negative += 1
+
+print("Positive:", positive)
+print("Negative:", negative)
+
+# -----------------------------------------------------
+# 10. Factorial
+# -----------------------------------------------------
+print("\n10. Factorial")
+num = 5
+fact = 1
+
+for i in range(1, num + 1):
+    fact *= i
+
+print(fact)
+
+# -----------------------------------------------------
+# 11. Check Prime Number
+# -----------------------------------------------------
+print("\n11. Prime Number")
+num = 17
+count = 0
+
+for i in range(1, num + 1):
+    if num % i == 0:
+        count += 1
+
+if count == 2:
+    print("Prime")
+else:
+    print("Not Prime")
+
+# -----------------------------------------------------
+# 12. Reverse Counting
+# -----------------------------------------------------
+print("\n12. Reverse Counting")
+for i in range(10, 0, -1):
+    print(i)
+
+# -----------------------------------------------------
+# 13. Print Square of Numbers
+# -----------------------------------------------------
+print("\n13. Squares")
+for i in range(1, 11):
+    print(i, "=", i * i)
+
+# -----------------------------------------------------
+# 14. Count Multiples of 3
+# -----------------------------------------------------
+print("\n14. Multiples of 3")
+count = 0
+
+for i in range(1, 31):
+    if i % 3 == 0:
+        count += 1
+
+print(count)
+
+# -----------------------------------------------------
+# 15. Print Numbers Divisible by 5
+# -----------------------------------------------------
+print("\n15. Divisible by 5")
+for i in range(1, 51):
+    if i % 5 == 0:
+        print(i)
+
+# -----------------------------------------------------
+# 16. Print Star Pattern
+# -----------------------------------------------------
+print("\n16. Star Pattern")
+for i in range(1, 6):
+    print("*" * i)
+
+# -----------------------------------------------------
+# 17. Number Pattern
+# -----------------------------------------------------
+print("\n17. Number Pattern")
+for i in range(1, 6):
+    print(str(i) * i)
+
+# -----------------------------------------------------
+# 18. Check Leap Year
+# -----------------------------------------------------
+print("\n18. Leap Year")
+year = 2024
+
+if year % 4 == 0:
+    print("Leap Year")
+else:
+    print("Not Leap Year")
+
+# -----------------------------------------------------
+# 19. Print Factors
+# -----------------------------------------------------
+print("\n19. Factors")
+num = 24
+
+for i in range(1, num + 1):
+    if num % i == 0:
+        print(i)
+
+# -----------------------------------------------------
+# 20. Sum of Even Numbers
+# -----------------------------------------------------
+print("\n20. Sum of Even Numbers")
+total = 0
+
+for i in range(1, 21):
+    if i % 2 == 0:
+        total += i
+
+print(total)
