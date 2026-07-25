@@ -1,0 +1,164 @@
+
+# List comprehension practice
+# Create a list of squares from 1 to 10
+
+squares = [i**2 for i in range(1, 11)]
+
+print("Squares:")
+print(squares)
+# Dictionary frequency counter
+text = "programming"
+
+frequency = {}
+
+for char in text:
+    if char in frequency:
+        frequency[char] += 1
+    else:
+        frequency[char] = 1
+
+print("Character Frequency:")
+print(frequency)
+# Merge dictionaries
+student = {
+    "name": "John",
+    "age": 20
+}
+
+marks = {
+    "math": 90,
+    "science": 95
+}
+
+merged = {**student, **marks}
+
+print("Merged Dictionary:")
+print(merged)
+# Lambda + sorted
+students = [
+    ("Alice", 90),
+    ("Bob", 75),
+    ("Charlie", 85),
+    ("David", 95)
+]
+
+sorted_students = sorted(students, key=lambda student: student[1])
+
+print("Sorted by Marks:")
+
+for student in sorted_students:
+    print(student)
+# File handling
+# Write into a file
+
+with open("sample.txt", "w") as file:
+    file.write("Hello Python!\n")
+    file.write("Learning File Handling.\n")
+
+# Read the file
+
+with open("sample.txt", "r") as file:
+    content = file.read()
+
+print("File Content:")
+print(content)
+# Exception handling
+
+try:
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+
+    result = num1 / num2
+
+    print("Result:", result)
+
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+
+except ValueError:
+    print("Please enter valid integers.")
+
+finally:
+    print("Program Finished.")
+# Classes & Objects
+class Student:
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def display(self):
+        print(f"Name : {self.name}")
+        print(f"Age  : {self.age}")
+
+
+student1 = Student("Alice", 20)
+
+student1.display()
+# Inheritance
+class Animal:
+
+    def speak(self):
+        print("Animal makes a sound")
+
+
+class Dog(Animal):
+
+    def bark(self):
+        print("Dog barks")
+
+
+dog = Dog()
+
+dog.speak()
+dog.bark()
+# Recursion
+def factorial(n):
+
+    if n == 0 or n == 1:
+        return 1
+
+    return n * factorial(n - 1)
+
+
+number = 5
+
+print("Factorial:", factorial(number))
+# Mini Bank Account class
+class BankAccount:
+
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited: {amount}")
+        print(f"Current Balance: {self.balance}")
+
+    def withdraw(self, amount):
+
+        if amount <= self.balance:
+            self.balance -= amount
+            print(f"Withdrawn: {amount}")
+            print(f"Current Balance: {self.balance}")
+
+        else:
+            print("Insufficient Balance.")
+
+    def show_balance(self):
+        print(f"Account Holder: {self.owner}")
+        print(f"Balance: {self.balance}")
+
+
+account = BankAccount("John", 1000)
+
+account.show_balance()
+
+account.deposit(500)
+
+account.withdraw(300)
+
+account.withdraw(1500)
+
+account.show_balance()
