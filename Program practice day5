@@ -1,0 +1,92 @@
+import math
+
+
+def print_hello_world():
+  print("Hello, World!")
+
+
+def greet_name(name):
+  print(f"Hello, {name}!")
+
+
+def add(a, b):
+  return a + b
+
+
+def subtract(a, b):
+  return a - b
+
+
+def multiply(a, b):
+  return a * b
+
+
+def divide(a, b):
+  if b == 0:
+    return "Error: Division by zero is not allowed."
+  return a / b
+
+
+def square(n):
+  return n**2
+
+
+def cube(n):
+  return n**3
+
+
+def check_even_odd(n):
+  if n % 2 == 0:
+    return "Even"
+  return "Odd"
+
+
+def max_of_two(a, b):
+  return max(a, b)
+
+
+def min_of_three(a, b, c):
+  return min(a, b, c)
+
+
+def rectangle_area(length, width):
+  return length * width
+
+
+def circle_area(radius):
+  return math.pi * (radius**2)
+
+
+def celsius_to_fahrenheit(celsius):
+  return (celsius * 9 / 5) + 32
+
+
+def factorial(n):
+  if n < 0:
+    return "Error: Factorial is not defined for negative numbers."
+  if n == 0 or n == 1:
+    return 1
+
+  result = 1
+  for i in range(2, n + 1):
+    result *= i
+  return result
+
+
+# Example usage:
+if __name__ == "__main__":
+  print_hello_world()
+  greet_name("Alice")
+  print("5 + 3 =", add(5, 3))
+  print("10 - 4 =", subtract(10, 4))
+  print("6 * 7 =", multiply(6, 7))
+  print("10 / 2 =", divide(10, 2))
+  print("Square of 4 =", square(4))
+  print("Cube of 3 =", cube(3))
+  print("7 is", check_even_odd(7))
+  print("Max of 10 and 20 =", max_of_two(10, 20))
+  print("Min of 5, 2, and 9 =", min_of_three(5, 2, 9))
+  print("Rectangle Area (5x4) =", rectangle_area(5, 4))
+  print("Circle Area (radius 3) =", circle_area(3))
+  print("25°C in Fahrenheit =", celsius_to_fahrenheit(25))
+  print("Factorial of 5 =", factorial(5))
