@@ -1,0 +1,124 @@
+def is_prime(n):
+  if n <= 1:
+    return False
+  for i in range(2, int(n**0.5) + 1):
+    if n % i == 0:
+      return False
+  return True
+
+
+def fibonacci_sequence(n):
+  if n <= 0:
+    return []
+  if n == 1:
+    return [0]
+
+  fib = [0, 1]
+  while len(fib) < n:
+    fib.append(fib[-1] + fib[-2])
+  return fib
+
+
+def reverse_string(s):
+  return s[::-1]
+
+
+def is_palindrome(s):
+  cleaned = "".join(char.lower() for char in s if char.isalnum())
+  return cleaned == cleaned[::-1]
+
+
+def count_vowels(s):
+  vowels = "aeiouAEIOU"
+  return sum(1 for char in s if char in vowels)
+
+
+def count_consonants(s):
+  return sum(1 for char in s if char.isalpha() and char.lower() not in "aeiou")
+
+
+def count_words(sentence):
+  return len(sentence.split())
+
+
+def find_max(lst):
+  if not lst:
+    return None
+  maximum = lst[0]
+  for item in lst:
+    if item > maximum:
+      maximum = item
+  return maximum
+
+
+def find_min(lst):
+  if not lst:
+    return None
+  minimum = lst[0]
+  for item in lst:
+    if item < minimum:
+      minimum = item
+  return minimum
+
+
+def list_sum(lst):
+  total = 0
+  for item in lst:
+    total += item
+  return total
+
+
+def list_average(lst):
+  if not lst:
+    return 0
+  return list_sum(lst) / len(lst)
+
+
+def remove_duplicates(lst):
+  seen = []
+  for item in lst:
+    if item not in seen:
+      seen.append(item)
+  return seen
+
+
+def sort_list(lst):
+  # Using Bubble Sort as an example of sorting without built-in sort()
+  arr = list(lst)
+  n = len(arr)
+  for i in range(n):
+    for j in range(0, n - i - 1):
+      if arr[j] > arr[j + 1]:
+        arr[j], arr[j + 1] = arr[j + 1], arr[j]
+  return arr
+
+
+def second_largest(lst):
+  unique_nums = remove_duplicates(lst)
+  if len(unique_nums) < 2:
+    return None
+  unique_nums = sort_list(unique_nums)
+  return unique_nums[-2]
+
+
+def merge_lists(list1, list2):
+  return list1 + list2
+
+
+# Example usage:
+if __name__ == "__main__":
+  print("Is 11 prime?", is_prime(11))
+  print("Fibonacci (7 terms):", fibonacci_sequence(7))
+  print("Reverse 'Python':", reverse_string("Python"))
+  print("Is 'Racecar' a palindrome?", is_palindrome("Racecar"))
+  print("Vowels in 'Hello World':", count_vowels("Hello World"))
+  print("Consonants in 'Hello World':", count_consonants("Hello World"))
+  print("Word count ('The quick brown fox'):", count_words("The quick brown fox"))
+  print("Max in [4, 2, 9, 1]:", find_max([4, 2, 9, 1]))
+  print("Min in [4, 2, 9, 1]:", find_min([4, 2, 9, 1]))
+  print("Sum of [1, 2, 3, 4]:", list_sum([1, 2, 3, 4]))
+  print("Average of [10, 20, 30]:", list_average([10, 20, 30]))
+  print("Remove duplicates [1, 2, 2, 3, 1]:", remove_duplicates([1, 2, 2, 3, 1]))
+  print("Sort [5, 2, 9, 1]:", sort_list([5, 2, 9, 1]))
+  print("Second largest in [10, 20, 4, 45, 99]:", second_largest([10, 20, 4, 45, 99]))
+  print("Merge [1, 2] and [3, 4]:", merge_lists([1, 2], [3, 4]))
