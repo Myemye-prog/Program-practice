@@ -1,0 +1,129 @@
+import functools
+import time
+
+
+# 1. Recursive function to calculate factorial
+def recursive_factorial(n):
+  if n < 0:
+    return "Error: Factorial is not defined for negative numbers."
+  if n == 0 or n == 1:
+    return 1
+  return n * recursive_factorial(n - 1)
+
+
+# 2. Recursive function to calculate Fibonacci numbers
+def recursive_fibonacci(n):
+  if n <= 0:
+    return 0
+  if n == 1:
+    return 1
+  return recursive_fibonacci(n - 1) + recursive_fibonacci(n - 2)
+
+
+# 3. Function that returns another function (closure)
+def make_multiplier(factor):
+  def multiplier(n):
+    return n * factor
+
+  return multiplier
+
+
+# 4. Decorator that measures a function's execution time
+def time_it(func):
+  @functools.wraps(func)
+  def wrapper(*args, **kwargs):
+    start_time = time.perf_counter()
+    result = func(*args, **kwargs)
+    end_time = time.perf_counter()
+    print(
+        f"[Timing] Function '{func.__name__}' executed in"
+        f" {end_time - start_time:.6f} seconds"
+    )
+    return result
+
+  return wrapper
+
+
+# 5. Decorator that logs a function's arguments and return value
+def log_calls(func):
+  @functools.wraps(func)
+  def wrapper(*args, **kwargs):
+    print(
+        f"[Logging] Calling '{func.__name__}' with args: {args}, kwargs:"
+        f" {kwargs}"
+    )
+    result = func(*args, **kwargs)
+    print(f"[Logging] Function '{func.__name__}' returned: {result}")
+    return result
+
+  return wrapper
+
+
+# 6. Function that accepts *args and returns their sum
+def sum_all(*args):
+  return sum(args)
+
+
+# 7. Function that accepts **kwargs and prints all key-value pairs
+def print_kwargs(**kwargs):
+  for key, value in kwargs.items():
+    print(f"{key}: {value}")
+
+
+# 8. Function that uses both *args and **kwargs
+def flexible_function(*args, **kwargs):
+  print(f"Positional args: {args}")
+  print(f"Keyword args: {kwargs}")
+
+
+# 9. Recursive function to search for an element in a nested list
+def recursive_search(nested_list, target):
+  for item in nested_list:
+    if isinstance(item, list):
+      if recursive_search(item, target):
+        return True
+    elif item == target:
+      return True
+  return False
+
+
+# 10. Memoized Fibonacci function using functools.lru_cache
+@functools.lru_cache(maxsize=None)
+def memoized_fibonacci(n):
+  if n <= 0:
+    return 0
+  if n == 1:
+    return 1
+  return memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2)
+
+
+# Example usage:
+if __name__ == "__main__":
+  print("Recursive Factorial of 5:", recursive_factorial(5))
+  print("Recursive Fibonacci (6th term):", recursive_fibonacci(6))
+
+  double = make_multiplier(2)
+  print("Closure (double 5):", double(5))
+
+
+  @time_it
+  @log_calls
+  def sample_addition(a, b):
+    time.sleep(0.1)  # Simulate work
+    return a + b
+
+
+  print("Decorated function result:", sample_addition(3, 4))
+  print("Sum with *args (1, 2, 3, 4, 5):", sum_all(1, 2, 3, 4, 5))
+
+  print("Printing **kwargs:")
+  print_kwargs(name="Alice", age=30, city="New York")
+
+  print("Flexible function call:")
+  flexible_function(1, 2, 3, mode="fast", verbose=True)
+
+  nested = [1, [2, [3, 4], 5], 6]
+  print("Search for 4 in nested list:", recursive_search(nested, 4))
+  print("Search for 9 in nested list:", recursive_search(nested, 9))
+
+  print("Memoized Fibonacci (50th term):", memoized_fibonacci(50))
