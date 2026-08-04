@@ -1,0 +1,82 @@
+import string
+
+
+def char_frequency(s):
+  freq = {}
+  for char in s:
+    freq[char] = freq.get(char, 0) + 1
+  return freq
+
+
+def element_frequency(lst):
+  freq = {}
+  for item in lst:
+    freq[item] = freq.get(item, 0) + 1
+  return freq
+
+
+def common_elements(list1, list2):
+  return list(set(list1) & set(list2))
+
+
+def unique_elements(list1, list2):
+  return list(set(list1) ^ set(list2))
+
+
+def rotate_list(lst, k):
+  if not lst:
+    return []
+  k = k % len(lst)
+  return lst[-k:] + lst[:-k]
+
+
+def flatten_list(nested_lst):
+  flat = []
+  for item in nested_lst:
+    if isinstance(item, list):
+      flat.extend(flatten_list(item))
+    else:
+      flat.append(item)
+  return flat
+
+
+def are_anagrams(s1, s2):
+  clean_s1 = "".join(char.lower() for char in s1 if char.isalnum())
+  clean_s2 = "".join(char.lower() for char in s2 if char.isalnum())
+  return sorted(clean_s1) == sorted(clean_s2)
+
+
+def remove_punctuation(s):
+  return "".join(char for char in s if char not in string.punctuation)
+
+
+def generate_primes(n):
+  if n < 2:
+    return []
+  sieve = [True] * (n + 1)
+  sieve[0] = sieve[1] = False
+  for p in range(2, int(n**0.5) + 1):
+    if sieve[p]:
+      for i in range(p * p, n + 1, p):
+        sieve[i] = False
+  return [p for p in range(n + 1) if sieve[p]]
+
+
+def gcd(a, b):
+  while b:
+    a, b = b, a % b
+  return abs(a)
+
+
+# Example usage:
+if __name__ == "__main__":
+  print("Character frequency ('apple'):", char_frequency("apple"))
+  print("Element frequency ([1, 2, 2, 3, 3, 3]):", element_frequency([1, 2, 2, 3, 3, 3]))
+  print("Common elements ([1, 2, 3], [2, 3, 4]):", common_elements([1, 2, 3], [2, 3, 4]))
+  print("Unique elements ([1, 2, 3], [2, 3, 4]):", unique_elements([1, 2, 3], [2, 3, 4]))
+  print("Rotate list ([1, 2, 3, 4, 5] by 2):", rotate_list([1, 2, 3, 4, 5], 2))
+  print("Flatten list ([1, [2, [3, 4], 5], 6]):", flatten_list([1, [2, [3, 4], 5], 6]))
+  print("Are 'Listen' and 'Silent' anagrams?", are_anagrams("Listen", "Silent"))
+  print("Remove punctuation ('Hello, World!'):", remove_punctuation("Hello, World!"))
+  print("Primes up to 20:", generate_primes(20))
+  print("GCD of 48 and 18:", gcd(48, 18))
