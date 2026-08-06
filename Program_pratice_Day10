@@ -1,0 +1,105 @@
+import re
+text = "Python Java Python C++ Python"
+result = re.findall("Python", text)
+print(result)
+
+#--------------------------------------------------------------
+#   regex program
+#--------------------------------------------------------------
+
+text1 = """
+Hello John,
+Your phone number is 9876543210.
+Your backup number is 9123456789.
+
+Your email is john123@gmail.com.
+
+Today is 05-08-2026.
+
+Python version is Python3.13.
+
+Price:
+Apple = ₹120
+Banana = ₹40
+Orange = ₹80
+
+Website:
+https://www.google.com
+
+Student IDs:
+A101
+B205
+C300
+
+Marks:
+Math = 98
+Science = 87
+English = 91
+
+Special symbols:
+@ # $ % & *
+
+Mixed Text:
+abc123 XYZ789 hello456
+"""
+result1 = re.findall("Python", text1)
+#Find a Word
+print(result1)
+#Find Numbers
+print(re.findall(r"\d", text1))
+#Find Complete Numbers
+print(re.findall(r"\d+", text1))
+#Find Only Words
+print(re.findall(r"[A-Za-z]+", text1))
+#Find Capital Words
+print(re.findall(r"[A-Z][a-z]+", text1))
+#Find small words
+print(re.findall(r"[a-z][A-Z]+", text1))
+#Find Lowercase Words
+print(re.findall(r"[a-z]+", text1))
+#Find Emails
+print(re.findall(r"\S+@\S+", text1))
+print(re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text1))
+#Find Phone Numbers
+print(re.findall(r"\d{10}", text1))
+#Find Dates
+print(re.findall(r"\d{2}-\d{2}-\d{4}", text1))
+#Find Prices
+print(re.findall(r"\d+", text1))
+print(re.findall(r"₹\d+", text1))
+#Find Student IDs
+print(re.findall(r"[A-Z]\d+", text1))
+print(re.findall(r"[A-Z]\d{3}", text1))
+#Find Version Number
+print(re.findall(r"\d+\.\d+", text1))
+#Find Website
+print(re.findall(r"https?://\S+\.\S+\.\S+", text1))
+#Find Special Symbols
+print(re.findall(r"[@#$%&*]", text1))
+#Find Words Ending with "ing"
+print(re.findall(r"\w+ing", text1))
+#Find Words Starting with "P"
+print(re.findall(r"\bP\w*", text1))
+#Find Mixed Words
+print(re.findall(r"[A-Za-z]+\d+", text1))
+#Find Only Alphabets
+print(re.findall(r"[A-Za-z]",text1))
+#Find Everything Except Digits
+print(re.findall(r"\D", text1))
+#Find Spaces
+print(re.findall(r"\s", text1))
+#Find Non-Spaces
+print(re.findall(r"\S", text1))
+#Find Word Boundaries
+print(re.findall(r"\bJohn\b", text1))
+#Find 3-Letter Words
+print(re.findall(r"\b[A-Za-z]{3}\b", text1))
+#Find 5-Letter Words
+print(re.findall(r"\b[A-Za-z]{5}\b", text1))
+#Find Repeated Pattern
+print(re.findall(r"\w+at", text1))
+#Using Groups with findall()
+print(re.findall(r"\w+\s=\s\d+", text1))
+print(re.findall(r"(\w+) = (\d+)", text1))
+#Empty Result
+print(re.findall("JavaScript", text1))
