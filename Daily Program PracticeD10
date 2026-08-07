@@ -1,0 +1,117 @@
+import re
+
+
+# ============================================================
+# REGEX PRACTICE - 10 QUESTIONS
+# ============================================================
+
+
+# 1. Find all numbers
+text1 = "I have 25 apples, 10 bananas and 300 oranges."
+
+pattern1 = r""
+result1 = re.findall(pattern1, text1)
+
+print("1.", result1)
+
+
+# ============================================================
+
+# 2. Find all words starting with uppercase P
+text2 = "Python is Powerful and popular Programming language."
+
+pattern2 = r""
+result2 = re.findall(pattern2, text2)
+
+print("2.", result2)
+
+
+# ============================================================
+
+# 3. Find all 4-digit numbers
+text3 = "My PINs are 1234, 567, 9876 and 2026."
+
+pattern3 = r""
+result3 = re.findall(pattern3, text3)
+
+print("3.", result3)
+
+
+# ============================================================
+
+# 4. Find all words ending with "ing"
+text4 = "I am learning Python and practicing coding."
+
+pattern4 = r""
+result4 = re.findall(pattern4, text4)
+
+print("4.", result4)
+
+
+# ============================================================
+
+# 5. Find all 10-digit phone numbers
+text5 = "Call me at 9876543210 or 8123456789."
+
+pattern5 = r""
+result5 = re.findall(pattern5, text5)
+
+print("5.", result5)
+
+
+# ============================================================
+
+# 6. Find all email addresses
+text6 = "Contact john@gmail.com or support@yahoo.com"
+
+pattern6 = r""
+result6 = re.findall(pattern6, text6)
+
+print("6.", result6)
+
+
+# ============================================================
+
+# 7. Find numbers containing 2 or 3 digits
+text7 = "I bought 5 pens, 25 books, 100 pencils and 999 files."
+
+pattern7 = r""
+result7 = re.findall(pattern7, text7)
+
+print("7.", result7)
+
+
+# ============================================================
+
+# 8. Find words beginning with A and ending with e
+text8 = "Apple Age awesome Active Axe airplane"
+
+pattern8 = r""
+result8 = re.findall(pattern8, text8)
+
+print("8.", result8)
+
+
+# ============================================================
+
+# 9. Find dates in DD/MM/YYYY format
+text9 = "My exams are on 12/08/2026 and 25/12/2026."
+
+pattern9 = r""
+result9 = re.findall(pattern9, text9)
+
+print("9.", result9)
+
+
+# ============================================================
+
+# 10. CHALLENGE - Find currency amounts
+text10 = "I spent ₹500, $25, €100 and ₹1,500 yesterday."
+
+pattern10 = r""
+result10 = re.findall(pattern10, text10)
+
+print("10.", result10)
+
+
+# ============================================================
