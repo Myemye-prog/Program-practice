@@ -1,0 +1,140 @@
+# ==========================================================
+#              TUPLE PRACTICE PROGRAMS
+# ==========================================================
+
+
+# ----------------------------------------------------------
+# 1. Count how many times an element appears
+# ----------------------------------------------------------
+
+numbers = (10, 20, 10, 30, 10, 40, 20)
+
+element = 10
+
+count = numbers.count(element)
+
+print("1. Count of", element, ":", count)
+
+
+# ----------------------------------------------------------
+# 2. Find the maximum and minimum values
+# ----------------------------------------------------------
+
+numbers = (25, 10, 45, 5, 30, 15)
+
+maximum = max(numbers)
+minimum = min(numbers)
+
+print("\n2. Maximum:", maximum)
+print("   Minimum:", minimum)
+
+
+# ----------------------------------------------------------
+# 3. Convert a tuple into a list and back
+# ----------------------------------------------------------
+
+numbers = (10, 20, 30, 40, 50)
+
+# Tuple -> List
+my_list = list(numbers)
+
+print("\n3. Tuple converted to list:", my_list)
+
+# List -> Tuple
+my_tuple = tuple(my_list)
+
+print("   List converted back to tuple:", my_tuple)
+
+
+# ----------------------------------------------------------
+# 4. Merge two tuples
+# ----------------------------------------------------------
+
+tuple1 = (10, 20, 30)
+tuple2 = (40, 50, 60)
+
+merged_tuple = tuple1 + tuple2
+
+print("\n4. Merged tuple:", merged_tuple)
+
+
+# ----------------------------------------------------------
+# 5. Find the sum of all numeric elements
+# ----------------------------------------------------------
+
+numbers = (10, 20, 30, 40, 50)
+
+total = sum(numbers)
+
+print("\n5. Sum of tuple elements:", total)
+
+
+# ----------------------------------------------------------
+# 6. Print tuple elements with their indexes
+# ----------------------------------------------------------
+
+numbers = (10, 20, 30, 40, 50)
+
+print("\n6. Tuple elements with indexes:")
+
+for index in range(len(numbers)):
+    print("Index:", index, "Value:", numbers[index])
+
+
+# ----------------------------------------------------------
+# 7. Remove duplicates by converting to another data structure
+# ----------------------------------------------------------
+
+numbers = (10, 20, 10, 30, 20, 40, 30, 50)
+
+# Convert tuple -> set
+unique_values = set(numbers)
+
+# Convert set -> tuple
+unique_tuple = tuple(unique_values)
+
+print("\n7. Tuple without duplicates:", unique_tuple)
+
+
+# ----------------------------------------------------------
+# 8. Check whether a value exists in the tuple
+# ----------------------------------------------------------
+
+numbers = (10, 20, 30, 40, 50)
+
+value = 30
+
+if value in numbers:
+    print("\n8.", value, "exists in the tuple")
+else:
+    print("\n8.", value, "does not exist in the tuple")
+
+
+# ----------------------------------------------------------
+# 9. Find the second largest element
+# ----------------------------------------------------------
+
+numbers = (10, 50, 30, 40, 20)
+
+# Remove duplicates
+unique_numbers = set(numbers)
+
+# Sort the numbers
+sorted_numbers = sorted(unique_numbers)
+
+# Get second largest
+second_largest = sorted_numbers[-2]
+
+print("\n9. Second largest element:", second_largest)
+
+
+# ----------------------------------------------------------
+# 10. Create a tuple of squares from 1 to 10
+# ----------------------------------------------------------
+
+squares = ()
+
+for number in range(1, 11):
+    squares = squares + (number ** 2,)
+
+print("\n10. Tuple of squares:", squares)
