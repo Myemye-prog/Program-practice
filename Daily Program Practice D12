@@ -1,0 +1,188 @@
+# ============================================================
+# PYTHON DICTIONARY - INTERVIEW QUESTIONS & ANSWERS
+# ============================================================
+
+
+# Q1. What is a dictionary in Python?
+#
+# Answer:
+# A dictionary stores data in key-value pairs.
+# It is mutable and keys must be unique.
+
+student = {
+    "name": "Rahul",
+    "age": 22
+}
+
+print(student["name"])
+
+
+# ============================================================
+# Q2. How do you add and update a value in a dictionary?
+#
+# Answer:
+# Use dictionary[key] = value.
+
+student = {
+    "name": "Rahul",
+    "age": 22
+}
+
+student["city"] = "Delhi"   # Add
+student["age"] = 23         # Update
+
+print(student)
+
+
+# ============================================================
+# Q3. What happens if you access a key that doesn't exist?
+#
+# Answer:
+# It raises a KeyError.
+# Use .get() if you want to avoid the error.
+
+student = {
+    "name": "Rahul"
+}
+
+# print(student["age"])      # KeyError
+
+print(student.get("age"))    # None
+
+
+# ============================================================
+# Q4. How do you check whether a key exists?
+#
+# Answer:
+# Use the "in" operator.
+
+student = {
+    "name": "Rahul",
+    "age": 22
+}
+
+if "age" in student:
+    print("Key exists")
+else:
+    print("Key doesn't exist")
+
+
+# ============================================================
+# Q5. How do you iterate through a dictionary?
+#
+# Answer:
+# Use .items() to get both key and value.
+
+student = {
+    "name": "Rahul",
+    "age": 22,
+    "city": "Delhi"
+}
+
+for key, value in student.items():
+    print(key, value)
+
+
+# ============================================================
+# Q6. How do you find the key having the highest value?
+#
+# Answer:
+# Use max() with dictionary.get.
+
+marks = {
+    "Math": 85,
+    "English": 92,
+    "Science": 78
+}
+
+highest = max(marks, key=marks.get)
+
+print(highest)
+print(marks[highest])
+
+
+# ============================================================
+# Q7. How do you count the frequency of characters?
+#
+# Example:
+# "banana"
+#
+# Expected:
+# {'b': 1, 'a': 3, 'n': 2}
+
+text = "banana"
+
+count = {}
+
+for char in text:
+    if char in count:
+        count[char] += 1
+    else:
+        count[char] = 1
+
+print(count)
+
+
+# ============================================================
+# Q8. How do you merge two dictionaries?
+#
+# Answer:
+# One way is dictionary unpacking using **.
+
+d1 = {
+    "a": 10,
+    "b": 20
+}
+
+d2 = {
+    "c": 30,
+    "d": 40
+}
+
+result = {**d1, **d2}
+
+print(result)
+
+
+# ============================================================
+# Q9. What happens when two keys have the same name?
+#
+# Answer:
+# Dictionary keys must be unique.
+# The later value overwrites the previous value.
+
+data = {
+    "name": "Rahul",
+    "name": "Aman"
+}
+
+print(data)
+
+# Output:
+# {'name': 'Aman'}
+
+
+# ============================================================
+# Q10. INTERVIEW CODING QUESTION
+#
+# Print employees whose salary is greater than 30,000.
+
+employees = {
+    "Rahul": 25000,
+    "Aman": 35000,
+    "Priya": 45000,
+    "Rohit": 28000
+}
+
+for name, salary in employees.items():
+    if salary > 30000:
+        print(name, salary)
+
+# Expected:
+# Aman 35000
+# Priya 45000
+
+
+# ============================================================
+# END
+# ============================================================
