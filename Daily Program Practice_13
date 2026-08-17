@@ -1,0 +1,312 @@
+#----------------------------------------------
+#   ✈️ Flight Reservation System
+#----------------------------------------------
+import random
+import string
+# ---------------------------------------
+# FLIGHT DATA
+# ---------------------------------------
+flights = {
+    "AI101":{
+        "from": "Chennai",
+        "to": "Delhi",
+        "date": "25-08-2026",
+        "time": "10:30 AM",
+        "price": 5000,
+        "seats": 5
+    },
+    "6E202": {
+        "from": "Chennai",
+        "to": "Mumbai",
+        "date": "26-08-2026",
+        "time": "02:00 PM",
+        "price": 4500,
+        "seats": 8
+    },
+    "UK303": {
+        "from": "Delhi",
+        "to": "Bangalore",
+        "date": "27-08-2026",
+        "time": "06:30 PM",
+        "price": 6200,
+        "seats": 4
+    },
+
+    "AI404": {
+        "from": "Mumbai",
+        "to": "Chennai",
+        "date": "28-08-2026",
+        "time": "09:00 AM",
+        "price": 4800,
+        "seats": 6
+    }
+}
+# Stores all bookings
+bookings = {}
+
+# ---------------------------------------
+# GENERATE PNR
+# ---------------------------------------
+def generate_pnr():
+    while True:
+        letters = ''.join(random.choice(string.ascii_uppercase, k=3))
+        numbers = ''.join(random.choice(string.digits, k=3))
+
+        pnr = letters + numbers
+        if pnr not in bookings:
+            return pnr
+# ---------------------------------------
+# DISPLAY FLIGHTS
+# ---------------------------------------
+def display_flights():
+
+    print("\n========== AVAILABLE FLIGHTS ==========")
+    for flight_no, flight in flights.items():
+        print(f"\nFlight Number : {flight_no}")
+        print(f"Route           : {flight['from']} -> {flight['to']}")
+        print(f"date            : {flight['date']}")
+        print(f"Time            : {flight['time']}")
+        print(f"price           : ₹{flight['price']}")
+        print(f"Available Seats : {flight['seats']}")
+# ---------------------------------------
+# SEARCH FLIGHT
+# ---------------------------------------
+def search_flight():
+
+    source = input("Enter departure city: ").strip().lower()
+    destination = input("Enter destination city: ").strip().lower()
+    found = False
+
+    print("\n========== SEARCH RESULTS ==========")
+    for flight_no, flight in flights.item():
+
+        if (flight["from"].lower() == source and flight["to"].lower() == destination):
+
+            print(f"\n Flight Number : {flight_no}")
+            print(f"Route          : {flight['from']} -> {flight['to']}")
+            print(f"Date           : {flight['date']}")
+            print(f"Time           : {flight['time']}")
+            print(f"Price          : ₹{flight['price']}")
+            print(f"Seats          :{flight['seats']}")
+            found = True
+        if not found:
+            print("\nNO flight found.")
+# ---------------------------------------
+# BOOK FLIGHT
+# ---------------------------------------
+def book_flight():
+
+    display_flights()
+    flight_no = input("\nEnter flight number to book: ").strip().upper()
+    if flight_no not in flights:
+        print("Invalid flight number.")
+        return
+    flight = flights[flight_no]
+    if flight["seats"] <= 0:
+        print("Sorry, no seats available.")
+        return
+    # Passenger detail
+    name = input("Enter passenger name: ").strip()
+    if not name:
+        print("Name cannot be empty")
+        return
+
+    age = input("Enter passenger age: ").strip()
+
+    if not age.isdigit():
+        print("Age must contain number only.")
+        return
+    age = int(age)
+    if age <= 0 or age > 120:
+        print("Invalid age")
+        return
+    phone = input("Enter phone number : ").strip()
+    if not phone.isdigit() or len(phone) !=10:
+        print("Phone number must contain exactly 10 digits.")
+        return
+    # Generate PNR
+    pnr = generate_pnr()
+
+    # Create booking        
+    bookings[pnr] = {
+        "name": name,
+        "age": age,
+        "phone": phone,
+        "flight": flight_no,
+        "from": flight["from"],
+        "to": flight["to"],
+        "date": flight["date"],
+        "time": flight["time"],
+        "price": flight["price"]
+    }
+    # Reduce available seats
+    flight["seats"] -= 1
+
+    print("\n========== BOOKING SUCCESSFUL ==========")
+    print(f"PNR Number : {pnr}")
+    print(f"Passenger  : {name}")
+    print(f"Flight     : {flight_no}")
+    print(f"Route      : {flight['from']} -> {flight['to']}")
+    print(f"Date       : {flight['date']}")
+    print(f"Time       : {flight['time']}")
+    print(f"Amount     : ₹{flight['price']}")
+
+
+# ---------------------------------------
+# VIEW BOOKING
+# ---------------------------------------
+
+def view_booking():
+
+    pnr = input("Enter your PNR: ").strip().upper()
+
+    if pnr not in bookings:
+        print("Booking not found.")
+        return
+
+    booking = bookings[pnr]
+
+    print("\n========== BOOKING DETAILS ==========")
+
+    print(f"PNR        : {pnr}")
+    print(f"Passenger  : {booking['name']}")
+    print(f"Age        : {booking['age']}")
+    print(f"Phone      : {booking['phone']}")
+    print(f"Flight     : {booking['flight']}")
+    print(f"From       : {booking['from']}")
+    print(f"To         : {booking['to']}")
+    print(f"Date       : {booking['date']}")
+    print(f"Time       : {booking['time']}")
+    print(f"Price      : ₹{booking['price']}")
+
+
+# ---------------------------------------
+# CANCEL BOOKING
+# ---------------------------------------
+
+def cancel_booking():
+
+    pnr = input("Enter PNR to cancel: ").strip().upper()
+
+    if pnr not in bookings:
+        print("Booking not found.")
+        return
+
+    booking = bookings[pnr]
+
+    flight_no = booking["flight"]
+
+    # Increase available seats
+    flights[flight_no]["seats"] += 1
+
+    # Remove booking
+    del bookings[pnr]
+
+    print("\nBooking cancelled successfully.")
+
+
+# ---------------------------------------
+# DISPLAY ALL BOOKINGS
+# ---------------------------------------
+
+def display_all_bookings():
+
+    if not bookings:
+        print("\nNo bookings available.")
+        return
+
+    print("\n========== ALL BOOKINGS ==========")
+
+    for pnr, booking in bookings.items():
+
+        print("\n------------------------------")
+        print(f"PNR       : {pnr}")
+        print(f"Passenger : {booking['name']}")
+        print(f"Flight    : {booking['flight']}")
+        print(f"Route     : {booking['from']} -> {booking['to']}")
+        print(f"Date      : {booking['date']}")
+        print(f"Price     : ₹{booking['price']}")
+
+
+# ---------------------------------------
+# SAVE BOOKINGS TO FILE
+# ---------------------------------------
+
+def save_bookings():
+
+    with open("bookings.txt", "w") as file:
+
+        for pnr, booking in bookings.items():
+
+            data = (
+                pnr + "|" +
+                booking["name"] + "|" +
+                str(booking["age"]) + "|" +
+                booking["phone"] + "|" +
+                booking["flight"] + "|" +
+                booking["from"] + "|" +
+                booking["to"] + "|" +
+                booking["date"] + "|" +
+                booking["time"] + "|" +
+                str(booking["price"]) + "\n"
+            )
+
+            file.write(data)
+
+    print("Bookings saved to bookings.txt")
+
+
+# ---------------------------------------
+# MAIN MENU
+# ---------------------------------------
+
+def main():
+
+    while True:
+
+        print("\n\n====================================")
+        print("       ✈️ FLIGHT RESERVATION SYSTEM")
+        print("====================================")
+
+        print("1. View Flights")
+        print("2. Search Flight")
+        print("3. Book Flight")
+        print("4. View Booking")
+        print("5. Cancel Booking")
+        print("6. Display All Bookings")
+        print("7. Save Bookings")
+        print("8. Exit")
+
+        choice = input("\nEnter your choice: ").strip()
+
+        if choice == "1":
+            display_flights()
+
+        elif choice == "2":
+            search_flight()
+
+        elif choice == "3":
+            book_flight()
+
+        elif choice == "4":
+            view_booking()
+
+        elif choice == "5":
+            cancel_booking()
+
+        elif choice == "6":
+            display_all_bookings()
+
+        elif choice == "7":
+            save_bookings()
+
+        elif choice == "8":
+            print("\nThank you for using the Flight Reservation System!")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+
+# Start program
+main()
