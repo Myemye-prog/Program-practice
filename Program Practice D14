@@ -1,56 +1,608 @@
 import turtle
 import time
+import math
+import urllib.request
+import json
+
+# ==========================================================
+# SCREEN SETUP
+# ==========================================================
 
 wn = turtle.Screen()
-wn.title("Analog Clock")
-wn.bgcolor("black")
-wn.setup(width=500, height=500)
+wn.title("✨ Stylish Analog Clock + Live Weather")
+wn.bgcolor("#0b1020")
+wn.setup(width=800, height=800)
+wn.tracer(0)
+
+
+# ==========================================================
+# TURTLE SETUP
+# ==========================================================
 
 clock = turtle.Turtle()
 clock.hideturtle()
 clock.speed(0)
-clock.pensize(3)
+
+text = turtle.Turtle()
+text.hideturtle()
+text.speed(0)
+
+weather = turtle.Turtle()
+weather.hideturtle()
+weather.speed(0)
+
+
+# ==========================================================
+# WEATHER LOCATION
+# ==========================================================
+
+# Chennai coordinates
+LATITUDE = 13.0827
+LONGITUDE = 80.2707
+
+CITY = "Chennai"
+
+
+# ==========================================================
+# WEATHER VARIABLES
+# ==========================================================
+
+temperature = "--"
+feels_like = "--"
+humidity = "--"
+wind_speed = "--"
+weather_description = "Loading..."
+weather_icon = "☁"
+
+
+# ==========================================================
+# WEATHER CODE CONVERTER
+# ==========================================================
+
+def get_weather_description(code):
+
+    if code == 0:
+        return "Clear Sky", "☀"
+
+    elif code in [1, 2, 3]:
+        return "Cloudy", "☁"
+
+    elif code in [45, 48]:
+        return "Foggy", "🌫"
+
+    elif code in [51, 53, 55]:
+        return "Drizzle", "🌦"
+
+    elif code in [61, 63, 65]:
+        return "Rain", "🌧"
+
+    elif code in [71, 73, 75]:
+        return "Snow", "❄"
+
+    elif code in [80, 81, 82]:
+        return "Rain Showers", "🌦"
+
+    elif code in [95]:
+        return "Thunderstorm", "⛈"
+
+    elif code in [96, 99]:
+        return "Thunderstorm", "⛈"
+
+    else:
+        return "Unknown", "☁"
+
+
+# ==========================================================
+# GET LIVE WEATHER
+# ==========================================================
+
+def get_weather():
+
+    global temperature
+    global feels_like
+    global humidity
+    global wind_speed
+    global weather_description
+    global weather_icon
+
+    try:
+
+        url = (
+            "https://api.open-meteo.com/v1/forecast?"
+            f"latitude={LATITUDE}"
+            f"&longitude={LONGITUDE}"
+            "&current=temperature_2m,"
+            "relative_humidity_2m,"
+            "apparent_temperature,"
+            "weather_code,"
+            "wind_speed_10m"
+            "&timezone=auto"
+        )
+
+        with urllib.request.urlopen(url, timeout=5) as response:
+
+            data = json.loads(response.read().decode())
+
+        current = data["current"]
+
+        temperature = current["temperature_2m"]
+        feels_like = current["apparent_temperature"]
+        humidity = current["relative_humidity_2m"]
+        wind_speed = current["wind_speed_10m"]
+
+        code = current["weather_code"]
+
+        weather_description, weather_icon = \
+            get_weather_description(code)
+
+    except Exception:
+
+        weather_description = "Weather unavailable"
+        weather_icon = "☁"
+
+
+# ==========================================================
+# DRAW CIRCLE
+# ==========================================================
+
+def draw_circle(radius, color, width=2):
+
+    clock.penup()
+
+    clock.goto(0, -radius)
+
+    clock.setheading(0)
+
+    clock.pensize(width)
+
+    clock.color(color)
+
+    clock.pendown()
+
+    clock.circle(radius)
+
+    clock.penup()
+
+
+# ==========================================================
+# DRAW CLOCK FACE
+# ==========================================================
+
+def draw_clock_face():
+
+    # Outer rings
+
+    draw_circle(255, "#1e3a5f", 8)
+
+    draw_circle(245, "#38bdf8", 3)
+
+    draw_circle(235, "#172554", 2)
+
+
+    # Main clock face
+
+    clock.fillcolor("#111827")
+
+    clock.begin_fill()
+
+    clock.goto(0, -220)
+
+    clock.setheading(0)
+
+    clock.pendown()
+
+    clock.circle(220)
+
+    clock.end_fill()
+
+    clock.penup()
+
+
+    # ======================================================
+    # HOUR MARKS
+    # ======================================================
+
+    for i in range(12):
+
+        angle = math.radians(i * 30)
+
+        x1 = 205 * math.sin(angle)
+
+        y1 = 205 * math.cos(angle)
+
+        x2 = 185 * math.sin(angle)
+
+        y2 = 185 * math.cos(angle)
+
+        clock.goto(x1, y1)
+
+        clock.setheading(i * 30)
+
+        clock.color("#38bdf8")
+
+        clock.pensize(5)
+
+        clock.pendown()
+
+        clock.goto(x2, y2)
+
+        clock.penup()
+
+
+    # ======================================================
+    # MINUTE MARKS
+    # ======================================================
+
+    for i in range(60):
+
+        if i % 5 != 0:
+
+            angle = math.radians(i * 6)
+
+            x1 = 210 * math.sin(angle)
+
+            y1 = 210 * math.cos(angle)
+
+            x2 = 202 * math.sin(angle)
+
+            y2 = 202 * math.cos(angle)
+
+            clock.goto(x1, y1)
+
+            clock.setheading(i * 6)
+
+            clock.color("#64748b")
+
+            clock.pensize(2)
+
+            clock.pendown()
+
+            clock.goto(x2, y2)
+
+            clock.penup()
+
+
+# ==========================================================
+# DRAW NUMBERS
+# ==========================================================
+
+def draw_numbers():
+
+    numbers = [
+
+        ("12", 0, 175),
+        ("1", 87, 151),
+        ("2", 151, 87),
+        ("3", 175, 0),
+        ("4", 151, -87),
+        ("5", 87, -151),
+        ("6", 0, -175),
+        ("7", -87, -151),
+        ("8", -151, -87),
+        ("9", -175, 0),
+        ("10", -151, 87),
+        ("11", -87, 151)
+
+    ]
+
+    for number, x, y in numbers:
+
+        text.goto(x, y - 10)
+
+        text.color("#f8fafc")
+
+        text.write(
+            number,
+            align="center",
+            font=("Arial", 20, "bold")
+        )
+
+
+# ==========================================================
+# DRAW CLOCK HAND
+# ==========================================================
 
 def draw_hand(angle, length, color, width):
+
     clock.penup()
+
     clock.goto(0, 0)
+
     clock.setheading(90 - angle)
+
     clock.color(color)
+
     clock.pensize(width)
+
     clock.pendown()
+
     clock.forward(length)
+
     clock.penup()
+
+
+# ==========================================================
+# DRAW CENTER
+# ==========================================================
+
+def draw_center():
+
+    clock.goto(0, -10)
+
+    clock.color("#38bdf8")
+
+    clock.fillcolor("#38bdf8")
+
+    clock.begin_fill()
+
+    clock.circle(10)
+
+    clock.end_fill()
+
+
+    clock.goto(0, -5)
+
+    clock.color("#ffffff")
+
+    clock.fillcolor("#ffffff")
+
+    clock.begin_fill()
+
+    clock.circle(5)
+
+    clock.end_fill()
+
+
+# ==========================================================
+# DIGITAL TIME
+# ==========================================================
+
+def draw_digital_time():
+
+    now = time.localtime()
+
+    current_time = time.strftime(
+        "%I:%M:%S %p",
+        now
+    )
+
+    text.goto(0, -285)
+
+    text.color("#38bdf8")
+
+    text.write(
+        current_time,
+        align="center",
+        font=("Arial", 24, "bold")
+    )
+
+
+# ==========================================================
+# WEATHER PANEL
+# ==========================================================
+
+def draw_weather():
+
+    # Weather panel position
+
+    x = 0
+    y = -350
+
+    # City
+
+    weather.goto(x, y)
+
+    weather.color("#f8fafc")
+
+    weather.write(
+        f"{CITY}",
+        align="center",
+        font=("Arial", 18, "bold")
+    )
+
+
+    # Weather icon + condition
+
+    weather.goto(x, y - 30)
+
+    weather.color("#38bdf8")
+
+    weather.write(
+        f"{weather_icon}  {weather_description}",
+        align="center",
+        font=("Arial", 16, "normal")
+    )
+
+
+    # Temperature
+
+    weather.goto(x, y - 60)
+
+    weather.color("#fbbf24")
+
+    weather.write(
+        f"{temperature}°C",
+        align="center",
+        font=("Arial", 24, "bold")
+    )
+
+
+    # Feels like
+
+    weather.goto(x, y - 92)
+
+    weather.color("#94a3b8")
+
+    weather.write(
+        f"Feels like: {feels_like}°C",
+        align="center",
+        font=("Arial", 13, "normal")
+    )
+
+
+    # Humidity
+
+    weather.goto(x, y - 118)
+
+    weather.color("#60a5fa")
+
+    weather.write(
+        f"Humidity: {humidity}%",
+        align="center",
+        font=("Arial", 13, "normal")
+    )
+
+
+    # Wind
+
+    weather.goto(x, y - 144)
+
+    weather.color("#34d399")
+
+    weather.write(
+        f"Wind: {wind_speed} km/h",
+        align="center",
+        font=("Arial", 13, "normal")
+    )
+
+
+# ==========================================================
+# MAIN CLOCK
+# ==========================================================
 
 def draw_clock():
+
     clock.clear()
 
-    # Draw clock circle
-    clock.color("white")
-    clock.penup()
-    clock.goto(0, -200)
-    clock.setheading(0)
-    clock.pendown()
-    clock.circle(200)
-    clock.penup()
+    text.clear()
 
-    # Get current time
+    weather.clear()
+
+
+    # ======================================================
+    # DRAW STATIC CLOCK
+    # ======================================================
+
+    draw_clock_face()
+
+    draw_numbers()
+
+
+    # ======================================================
+    # GET CURRENT TIME
+    # ======================================================
+
     now = time.localtime()
-    sec = now.tm_sec
-    minute = now.tm_min
-    hour = now.tm_hour % 12
 
-    # Calculate angles
-    sec_angle = sec * 6
-    min_angle = minute * 6 + sec * 0.1
-    hour_angle = hour * 30 + minute * 0.5
+    seconds = now.tm_sec
 
-    # Draw hands
-    draw_hand(hour_angle, 100, "blue", 5)
-    draw_hand(min_angle, 140, "green", 3)
-    draw_hand(sec_angle, 170, "red", 1)
+    minutes = now.tm_min
 
-    # Update every second
+    hours = now.tm_hour % 12
+
+
+    # ======================================================
+    # CALCULATE ANGLES
+    # ======================================================
+
+    second_angle = seconds * 6
+
+    minute_angle = minutes * 6 + seconds * 0.1
+
+    hour_angle = hours * 30 + minutes * 0.5
+
+
+    # ======================================================
+    # DRAW HANDS
+    # ======================================================
+
+    # Hour hand
+
+    draw_hand(
+        hour_angle,
+        105,
+        "#60a5fa",
+        8
+    )
+
+
+    # Minute hand
+
+    draw_hand(
+        minute_angle,
+        145,
+        "#34d399",
+        5
+    )
+
+
+    # Second hand
+
+    draw_hand(
+        second_angle,
+        175,
+        "#ef4444",
+        2
+    )
+
+
+    # ======================================================
+    # CENTER
+    # ======================================================
+
+    draw_center()
+
+
+    # ======================================================
+    # DIGITAL CLOCK
+    # ======================================================
+
+    draw_digital_time()
+
+
+    # ======================================================
+    # WEATHER
+    # ======================================================
+
+    draw_weather()
+
+
+    # ======================================================
+    # UPDATE SCREEN
+    # ======================================================
+
+    wn.update()
+
+
+    # ======================================================
+    # UPDATE EVERY SECOND
+    # ======================================================
+
     wn.ontimer(draw_clock, 1000)
 
+
+# ==========================================================
+# UPDATE WEATHER EVERY 5 MINUTES
+# ==========================================================
+
+def update_weather():
+
+    get_weather()
+
+    wn.ontimer(
+        update_weather,
+        300000
+    )
+
+
+# ==========================================================
+# START
+# ==========================================================
+
+get_weather()
+
 draw_clock()
+
+update_weather()
+
 wn.mainloop()
