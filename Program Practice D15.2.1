@@ -1,0 +1,66 @@
+"""
+Challenge 2 — Student Grade Analyzer
+====================================
+
+Build a Python program that asks the user for 5 subject marks.
+
+The program should calculate:
+- Total marks
+- Average
+- Highest mark
+- Lowest mark
+- Grade
+"""
+
+
+def get_mark(subject):
+    while True:
+        mark = int(input(f"Enter {subject} subject mark (0-100): "))
+
+        if 0 <= mark <= 100:
+            return mark
+        else:
+            print("Invalid mark! Please enter a mark between 0 and 100.")
+
+
+# Get marks
+mth = get_mark("Math")
+phy = get_mark("Physics")
+che = get_mark("Chemistry")
+eng = get_mark("English")
+bio = get_mark("Biology")
+
+
+# Total
+total_mark = mth + phy + che + eng + bio
+print(f"Total marks: {total_mark}")
+
+
+# Average
+average = total_mark / 5
+print(f"Average marks: {average:.2f}")
+
+
+# Highest
+highest_mark = max(mth, phy, che, eng, bio)
+print(f"Highest mark: {highest_mark}")
+
+
+# Lowest
+lowest_mark = min(mth, phy, che, eng, bio)
+print(f"Lowest mark: {lowest_mark}")
+
+
+# Grade
+if average >= 90:
+    grade = "A"
+elif average >= 80:
+    grade = "B"
+elif average >= 70:
+    grade = "C"
+elif average >= 60:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"Grade: {grade}")
