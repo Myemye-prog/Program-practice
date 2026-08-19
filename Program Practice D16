@@ -1,0 +1,47 @@
+"""
+🚀 Challenge 3 — ATM Simulator
+
+Starting balance: 10,000.00
+"""
+
+balance=10000
+def check_balance():
+    print(f"Your current balace is {balance}")
+
+def deposit():
+    global balance
+    amount=int(input("Enter an amount you want to deposit"))
+    if amount<=0:
+        print("Please enter a valid amount")
+    else:
+        balance+=amount
+        print(f"You have deposited{amount} successfully....")
+        print(f"New balance is {balance}")
+    
+def withdraw():
+    global balance
+    amount=int(input("Enter an amount you want to withdraw"))
+    if amount<=0:
+        print("Please enter a valid amount")
+    else:
+        balance-=amount
+        print(f"You have withdrawl of an amount {amount} successfully...")
+        print(f"Now your balnce is {balance}")
+
+
+while True:
+    print("1. For check balance")
+    print("2. For deposit balance")
+    print("3. Withdraw balance")
+    print("4. Exit")
+    ch=input("Enter your choice")
+    if ch=="1":
+        check_balance()
+    elif ch=="2":
+        deposit()
+    elif ch=="3":
+        withdraw()
+    elif ch=="4":
+        break
+    else:
+        print("Invalid choice...\nEnter a choice between 1 to 4")
