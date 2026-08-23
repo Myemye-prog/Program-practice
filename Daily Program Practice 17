@@ -1,0 +1,370 @@
+# ============================================================
+# LIST + STRIP() - 20 PRACTICE PROGRAMS
+# ============================================================
+
+
+# ============================================================
+# 1. Take 5 names and remove extra spaces
+# ============================================================
+
+names = []
+
+for i in range(5):
+    name = input(f"Enter name {i + 1}: ")
+    names.append(name.strip())
+
+print("Cleaned names:", names)
+
+
+# ============================================================
+# 2. Print only non-empty names
+# ============================================================
+
+names = [" Papun ", " ", " Rahul", "", " Amit "]
+
+for name in names:
+    if name.strip() != "":
+        print(name.strip())
+
+
+# ============================================================
+# 3. Clean every name in a list
+# ============================================================
+
+names = [" Papun ", " Rahul", "Amit ", " Kumar "]
+
+cleaned_names = []
+
+for name in names:
+    cleaned_names.append(name.strip())
+
+print("Cleaned list:", cleaned_names)
+
+
+# ============================================================
+# 4. Count empty strings after strip()
+# ============================================================
+
+names = ["Papun", " ", "", " Rahul ", "   ", "Amit"]
+
+count = 0
+
+for name in names:
+    if name.strip() == "":
+        count += 1
+
+print("Empty strings:", count)
+
+
+# ============================================================
+# 5. Search city after strip()
+# ============================================================
+
+cities = ["Chennai", "Bangalore", "Mumbai", "Delhi"]
+
+search = input("Enter city to search: ").strip()
+
+if search in cities:
+    print("City found")
+else:
+    print("City not found")
+
+
+# ============================================================
+# 6. Check whether Papun exists after strip()
+# ============================================================
+
+names = [" Rahul ", " Papun", "Amit ", " Kumar"]
+
+found = False
+
+for name in names:
+    if name.strip() == "Papun":
+        found = True
+        break
+
+if found:
+    print("Papun found")
+else:
+    print("Papun not found")
+
+
+# ============================================================
+# 7. Remove empty strings from a list
+# ============================================================
+
+names = ["Papun", " ", "Rahul", "", "Amit", "   "]
+
+new_names = []
+
+for name in names:
+    if name.strip() != "":
+        new_names.append(name.strip())
+
+print("Final list:", new_names)
+
+
+# ============================================================
+# 8. Create a new list containing cleaned strings
+# ============================================================
+
+items = [" Apple ", " Banana", " Mango ", " Orange"]
+
+cleaned_items = []
+
+for item in items:
+    cleaned_items.append(item.strip())
+
+print(cleaned_items)
+
+
+# ============================================================
+# 9. Find longest cleaned string
+# ============================================================
+
+names = [" Papun ", "Rahul", " Kumar ", "Alexander"]
+
+longest = ""
+
+for name in names:
+    name = name.strip()
+
+    if len(name) > len(longest):
+        longest = name
+
+print("Longest name:", longest)
+
+
+# ============================================================
+# 10. Find shortest cleaned string
+# ============================================================
+
+names = [" Papun ", "Rahul", " A ", "Kumar"]
+
+shortest = None
+
+for name in names:
+    name = name.strip()
+
+    if name != "":
+        if shortest is None or len(name) < len(shortest):
+            shortest = name
+
+print("Shortest name:", shortest)
+
+
+# ============================================================
+# 11. Comma-separated names
+# ============================================================
+
+data = input("Enter names separated by comma: ")
+
+names = data.split(",")
+
+cleaned_names = []
+
+for name in names:
+    cleaned_names.append(name.strip())
+
+print("Cleaned names:", cleaned_names)
+
+
+# ============================================================
+# 12. Comma-separated categories
+# ============================================================
+
+data = " Food, Travel, Shopping , Entertainment "
+
+categories = data.split(",")
+
+cleaned_categories = []
+
+for category in categories:
+    cleaned_categories.append(category.strip())
+
+print("Categories:", cleaned_categories)
+
+
+# ============================================================
+# 13. Clean email addresses
+# ============================================================
+
+emails = [
+    " papun@gmail.com ",
+    " rahul@gmail.com",
+    "amit@gmail.com ",
+    " kumar@gmail.com "
+]
+
+cleaned_emails = []
+
+for email in emails:
+    cleaned_emails.append(email.strip())
+
+print("Cleaned emails:", cleaned_emails)
+
+
+# ============================================================
+# 14. Count duplicate names after strip()
+# ============================================================
+
+names = [
+    " Papun",
+    "Rahul ",
+    "Papun ",
+    " Rahul",
+    "Amit"
+]
+
+cleaned_names = []
+
+for name in names:
+    cleaned_names.append(name.strip())
+
+for name in cleaned_names:
+    count = 0
+
+    for item in cleaned_names:
+        if item == name:
+            count += 1
+
+    if count > 1:
+        print(name, "->", count)
+
+
+# ============================================================
+# 15. Find empty usernames
+# ============================================================
+
+usernames = [
+    "Papun",
+    " Rahul ",
+    " ",
+    "",
+    " Amit "
+]
+
+for username in usernames:
+    if username.strip() == "":
+        print("Empty username found")
+
+
+# ============================================================
+# 16. Strip sentences
+# ============================================================
+
+sentences = [
+    " Python is easy ",
+    " I am learning Python",
+    "Practice every day ",
+    " Lists are useful "
+]
+
+cleaned_sentences = []
+
+for sentence in sentences:
+    cleaned_sentences.append(sentence.strip())
+
+print("Cleaned sentences:")
+
+for sentence in cleaned_sentences:
+    print(sentence)
+
+
+# ============================================================
+# 17. Search product after strip()
+# ============================================================
+
+products = [
+    "Laptop",
+    "Mobile",
+    "Keyboard",
+    "Mouse"
+]
+
+search = input("Enter product name: ").strip()
+
+found = False
+
+for product in products:
+    if product.strip() == search:
+        found = True
+        print("Product found:", product.strip())
+        break
+
+if not found:
+    print("Product not found")
+
+
+# ============================================================
+# 18. Count category after strip()
+# ============================================================
+
+categories = [
+    " Food ",
+    "Travel",
+    " Food",
+    "Shopping ",
+    "Food ",
+    "Travel "
+]
+
+search = input("Enter category: ").strip()
+
+count = 0
+
+for category in categories:
+    if category.strip() == search:
+        count += 1
+
+print(search, "appears", count, "times")
+
+
+# ============================================================
+# 19. Remove duplicates after strip()
+# ============================================================
+
+names = [
+    " Papun ",
+    "Rahul",
+    " Papun",
+    "Amit ",
+    " Rahul ",
+    "Amit"
+]
+
+unique_names = []
+
+for name in names:
+    name = name.strip()
+
+    if name not in unique_names:
+        unique_names.append(name)
+
+print("Unique names:", unique_names)
+
+
+# ============================================================
+# 20. Clean list and remove empty values
+# ============================================================
+
+names = [
+    " Papun ",
+    " ",
+    "Rahul",
+    "",
+    " Amit ",
+    "   ",
+    "Kumar "
+]
+
+final_names = []
+
+for name in names:
+
+    name = name.strip()
+
+    if name != "":
+        final_names.append(name)
+
+print("Final valid names:", final_names)
