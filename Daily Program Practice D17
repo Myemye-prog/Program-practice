@@ -1,0 +1,272 @@
+"""
+10 HARD STRING QUESTIONS IN PYTHON
+Questions + Solutions
+"""
+
+
+# 1. Longest Substring Without Repeating Characters
+def longest_unique_substring(s):
+    char_index = {}
+    left = 0
+    max_length = 0
+
+    for right, char in enumerate(s):
+        if char in char_index and char_index[char] >= left:
+            left = char_index[char] + 1
+
+        char_index[char] = right
+        max_length = max(max_length, right - left + 1)
+
+    return max_length
+
+
+# 2. Longest Palindromic Substring
+def longest_palindrome(s):
+    result = ""
+
+    for i in range(len(s)):
+        # Odd length palindrome
+        left = right = i
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            if right - left + 1 > len(result):
+                result = s[left:right + 1]
+            left -= 1
+            right += 1
+
+        # Even length palindrome
+        left, right = i, i + 1
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            if right - left + 1 > len(result):
+                result = s[left:right + 1]
+            left -= 1
+            right += 1
+
+    return result
+
+
+# 3. Check if Two Strings Are Isomorphic
+def is_isomorphic(s, t):
+    if len(s) != len(t):
+        return False
+
+    map_s_t = {}
+    map_t_s = {}
+
+    for a, b in zip(s, t):
+        if a in map_s_t and map_s_t[a] != b:
+            return False
+
+        if b in map_t_s and map_t_s[b] != a:
+            return False
+
+        map_s_t[a] = b
+        map_t_s[b] = a
+
+    return True
+
+
+# 4. Minimum Window Substring
+def min_window(s, t):
+    if not s or not t:
+        return ""
+
+    from collections import Counter
+
+    required = Counter(t)
+    window = {}
+
+    left = 0
+    formed = 0
+    required_count = len(required)
+
+    answer = float("inf"), None, None
+
+    for right, char in enumerate(s):
+        window[char] = window.get(char, 0) + 1
+
+        if char in required and window[char] == required[char]:
+            formed += 1
+
+        while left <= right and formed == required_count:
+            char = s[left]
+
+            if right - left + 1 < answer[0]:
+                answer = (right - left + 1, left, right)
+
+            window[char] -= 1
+
+            if char in required and window[char] < required[char]:
+                formed -= 1
+
+            left += 1
+
+    return "" if answer[0] == float("inf") else s[answer[1]:answer[2] + 1]
+
+
+# 5. Group Anagrams
+def group_anagrams(words):
+    groups = {}
+
+    for word in words:
+        key = "".join(sorted(word))
+
+        if key not in groups:
+            groups[key] = []
+
+        groups[key].append(word)
+
+    return list(groups.values())
+
+
+# 6. Find All Anagrams in a String
+def find_anagrams(s, p):
+    from collections import Counter
+
+    if len(p) > len(s):
+        return []
+
+    p_count = Counter(p)
+    window = Counter(s[:len(p)])
+
+    result = []
+
+    if window == p_count:
+        result.append(0)
+
+    for i in range(len(p), len(s)):
+        window[s[i]] += 1
+
+        left_char = s[i - len(p)]
+        window[left_char] -= 1
+
+        if window[left_char] == 0:
+            del window[left_char]
+
+        if window == p_count:
+            result.append(i - len(p) + 1)
+
+    return result
+
+
+# 7. Decode Encoded String
+# Example: "3[a2[c]]" -> "accaccacc"
+def decode_string(s):
+    stack = []
+    current_string = ""
+    current_number = 0
+
+    for char in s:
+        if char.isdigit():
+            current_number = current_number * 10 + int(char)
+
+        elif char == "[":
+            stack.append((current_string, current_number))
+            current_string = ""
+            current_number = 0
+
+        elif char == "]":
+            previous_string, number = stack.pop()
+            current_string = previous_string + current_string * number
+
+        else:
+            current_string += char
+
+    return current_string
+
+
+# 8. Remove Minimum Invalid Parentheses
+def remove_invalid_parentheses(s):
+    from collections import deque
+
+    def is_valid(string):
+        count = 0
+
+        for char in string:
+            if char == "(":
+                count += 1
+            elif char == ")":
+                count -= 1
+
+                if count < 0:
+                    return False
+
+        return count == 0
+
+    queue = deque([s])
+    visited = {s}
+    result = []
+    found = False
+
+    while queue:
+        current = queue.popleft()
+
+        if is_valid(current):
+            result.append(current)
+            found = True
+
+        if found:
+            continue
+
+        for i in range(len(current)):
+            if current[i] not in "()":
+                continue
+
+            new_string = current[:i] + current[i + 1:]
+
+            if new_string not in visited:
+                visited.add(new_string)
+                queue.append(new_string)
+
+    return result
+
+
+# 9. Longest Common Subsequence
+def longest_common_subsequence(text1, text2):
+    rows = len(text1) + 1
+    cols = len(text2) + 1
+
+    dp = [[0] * cols for _ in range(rows)]
+
+    for i in range(1, rows):
+        for j in range(1, cols):
+            if text1[i - 1] == text2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[-1][-1]
+
+
+# 10. Count Palindromic Substrings
+def count_palindromic_substrings(s):
+    count = 0
+
+    def expand(left, right):
+        nonlocal count
+
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            count += 1
+            left -= 1
+            right += 1
+
+    for i in range(len(s)):
+        expand(i, i)       # Odd palindrome
+        expand(i, i + 1)   # Even palindrome
+
+    return count
+
+
+# ---------------- TESTING ----------------
+
+if __name__ == "__main__":
+
+    print("1.", longest_unique_substring("abcabcbb"))
+    print("2.", longest_palindrome("babad"))
+    print("3.", is_isomorphic("egg", "add"))
+    print("4.", min_window("ADOBECODEBANC", "ABC"))
+    print("5.", group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+    print("6.", find_anagrams("cbaebabacd", "abc"))
+    print("7.", decode_string("3[a2[c]]"))
+    print("8.", remove_invalid_parentheses("()())()"))
+    print("9.", longest_common_subsequence("abcde", "ace"))
+    print("10.", count_palindromic_substrings("aaa"))
