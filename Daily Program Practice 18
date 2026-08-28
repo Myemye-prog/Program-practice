@@ -1,0 +1,246 @@
+# ==========================================
+
+# 15 PYTHON STRING PRACTICE PROGRAMS
+
+# ==========================================
+
+# 1. Find the length of a string
+
+def string_length():
+text = input("Enter a string: ")
+print("Length:", len(text))
+
+# 2. Count vowels in a string
+
+def count_vowels():
+text = input("Enter a string: ").lower()
+count = 0
+
+```
+for char in text:
+    if char in "aeiou":
+        count += 1
+
+print("Vowels:", count)
+```
+
+# 3. Count consonants in a string
+
+def count_consonants():
+text = input("Enter a string: ").lower()
+count = 0
+
+```
+for char in text:
+    if char.isalpha() and char not in "aeiou":
+        count += 1
+
+print("Consonants:", count)
+```
+
+# 4. Reverse a string without slicing
+
+def reverse_string():
+text = input("Enter a string: ")
+reverse = ""
+
+```
+for char in text:
+    reverse = char + reverse
+
+print("Reversed string:", reverse)
+```
+
+# 5. Check palindrome
+
+def check_palindrome():
+text = input("Enter a string: ").lower()
+reverse = ""
+
+```
+for char in text:
+    reverse = char + reverse
+
+if text == reverse:
+    print("Palindrome")
+else:
+    print("Not a Palindrome")
+```
+
+# 6. Count a specific character
+
+def count_character():
+text = input("Enter a string: ")
+character = input("Enter character to count: ")
+
+```
+count = 0
+
+for char in text:
+    if char == character:
+        count += 1
+
+print("Count:", count)
+```
+
+# 7. Find first occurrence using find()
+
+def first_occurrence():
+text = input("Enter a string: ")
+character = input("Enter character: ")
+
+```
+position = text.find(character)
+
+print("First occurrence:", position)
+```
+
+# 8. Find last occurrence using rfind()
+
+def last_occurrence():
+text = input("Enter a string: ")
+character = input("Enter character: ")
+
+```
+position = text.rfind(character)
+
+print("Last occurrence:", position)
+```
+
+# 9. Remove spaces from a string
+
+def remove_spaces():
+text = input("Enter a string: ")
+
+```
+result = text.replace(" ", "")
+
+print("Without spaces:", result)
+```
+
+# 10. Count words in a sentence
+
+def count_words():
+text = input("Enter a sentence: ")
+
+```
+words = text.split()
+
+print("Number of words:", len(words))
+```
+
+# 11. Convert string to title case
+
+def title_case():
+text = input("Enter a sentence: ")
+
+```
+print("Title case:", text.title())
+```
+
+# 12. Replace a word in a sentence
+
+def replace_word():
+text = input("Enter a sentence: ")
+
+```
+old_word = input("Enter word to replace: ")
+new_word = input("Enter new word: ")
+
+result = text.replace(old_word, new_word)
+
+print("Updated sentence:", result)
+```
+
+# 13. Check whether string contains only alphabets
+
+def check_alphabet():
+text = input("Enter a string: ")
+
+```
+if text.isalpha():
+    print("String contains only alphabets")
+else:
+    print("String does not contain only alphabets")
+```
+
+# 14. Check whether string contains only digits
+
+def check_digits():
+text = input("Enter a string: ")
+
+```
+if text.isdigit():
+    print("String contains only digits")
+else:
+    print("String does not contain only digits")
+```
+
+# 15. Count uppercase, lowercase, digits and special characters
+
+def count_characters():
+text = input("Enter a string: ")
+
+```
+uppercase = 0
+lowercase = 0
+digits = 0
+special = 0
+
+for char in text:
+
+    if char.isupper():
+        uppercase += 1
+
+    elif char.islower():
+        lowercase += 1
+
+    elif char.isdigit():
+        digits += 1
+
+    else:
+        special += 1
+
+print("Uppercase letters:", uppercase)
+print("Lowercase letters:", lowercase)
+print("Digits:", digits)
+print("Special characters:", special)
+```
+
+# ==========================================
+
+# CALL ALL FUNCTIONS
+
+# Uncomment one function at a time
+
+# ==========================================
+
+# string_length()
+
+# count_vowels()
+
+# count_consonants()
+
+# reverse_string()
+
+# check_palindrome()
+
+# count_character()
+
+# first_occurrence()
+
+# last_occurrence()
+
+# remove_spaces()
+
+# count_words()
+
+# title_case()
+
+# replace_word()
+
+# check_alphabet()
+
+# check_digits()
+
+# count_characters()
