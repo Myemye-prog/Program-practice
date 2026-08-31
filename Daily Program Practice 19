@@ -1,0 +1,467 @@
+import threading
+import time
+import queue
+
+
+# ==========================================
+# 1. Create and Start One Thread
+# ==========================================
+def program1():
+    def hello():
+        print("Hello from thread")
+
+    thread = threading.Thread(target=hello)
+    thread.start()
+    thread.join()
+
+
+# ==========================================
+# 2. Run Two Threads
+# ==========================================
+def program2():
+    def task1():
+        print("Task 1 is running")
+
+    def task2():
+        print("Task 2 is running")
+
+    t1 = threading.Thread(target=task1)
+    t2 = threading.Thread(target=task2)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+
+# ==========================================
+# 3. Thread with Arguments
+# ==========================================
+def program3():
+    def greet(name):
+        print(f"Hello, {name}")
+
+    t = threading.Thread(target=greet, args=("Papun",))
+    t.start()
+    t.join()
+
+
+# ==========================================
+# 4. Print Numbers
+# ==========================================
+def program4():
+    def print_numbers():
+        for i in range(1, 11):
+            print(i)
+
+    t = threading.Thread(target=print_numbers)
+    t.start()
+    t.join()
+
+
+# ==========================================
+# 5. Even and Odd Numbers
+# ==========================================
+def program5():
+    def even():
+        for i in range(2, 11, 2):
+            print("Even:", i)
+
+    def odd():
+        for i in range(1, 11, 2):
+            print("Odd:", i)
+
+    t1 = threading.Thread(target=even)
+    t2 = threading.Thread(target=odd)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+
+# ==========================================
+# 6. Thread with Sleep
+# ==========================================
+def program6():
+    def task():
+        print("Task started")
+        time.sleep(2)
+        print("Task finished")
+
+    t = threading.Thread(target=task)
+    t.start()
+    t.join()
+
+
+# ==========================================
+# 7. Multiple Threads Using Loop
+# ==========================================
+def program7():
+    def work(number):
+        print(f"Thread {number} is working")
+
+    threads = []
+
+    for i in range(1, 6):
+        t = threading.Thread(target=work, args=(i,))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+
+# ==========================================
+# 8. Thread Name
+# ==========================================
+def program8():
+    def show_name():
+        print("Thread name:", threading.current_thread().name)
+
+    t = threading.Thread(
+        target=show_name,
+        name="Worker-1"
+    )
+
+    t.start()
+    t.join()
+
+
+# ==========================================
+# 9. Download Simulation
+# ==========================================
+def program9():
+    def download(file_name):
+        print(f"Downloading {file_name}...")
+        time.sleep(1)
+        print(f"{file_name} downloaded")
+
+    t1 = threading.Thread(target=download, args=("File1",))
+    t2 = threading.Thread(target=download, args=("File2",))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+
+# ==========================================
+# 10. Square and Cube
+# ==========================================
+def program10():
+    def square():
+        for i in range(1, 6):
+            print(f"Square of {i} = {i ** 2}")
+
+    def cube():
+        for i in range(1, 6):
+            print(f"Cube of {i} = {i ** 3}")
+
+    t1 = threading.Thread(target=square)
+    t2 = threading.Thread(target=cube)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+
+# ==========================================
+# 11. Shared Variable
+# ==========================================
+def program11():
+    count = [0]
+
+    def increase():
+        for _ in range(1000):
+            count[0] += 1
+
+    t1 = threading.Thread(target=increase)
+    t2 = threading.Thread(target=increase)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print("Count:", count[0])
+
+
+# ==========================================
+# 12. Lock Example
+# ==========================================
+def program12():
+    count = [0]
+    lock = threading.Lock()
+
+    def increase():
+        for _ in range(1000):
+            with lock:
+                count[0] += 1
+
+    t1 = threading.Thread(target=increase)
+    t2 = threading.Thread(target=increase)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print("Count:", count[0])
+
+
+# ==========================================
+# 13. Shared List
+# ==========================================
+def program13():
+    numbers = []
+
+    def add_numbers(start, end):
+        for i in range(start, end):
+            numbers.append(i)
+
+    t1 = threading.Thread(target=add_numbers, args=(1, 6))
+    t2 = threading.Thread(target=add_numbers, args=(6, 11))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print(numbers)
+
+
+# ==========================================
+# 14. Lock with List
+# ==========================================
+def program14():
+    numbers = []
+    lock = threading.Lock()
+
+    def add_numbers(start, end):
+        for i in range(start, end):
+            with lock:
+                numbers.append(i)
+
+    t1 = threading.Thread(
+        target=add_numbers,
+        args=(1, 6)
+    )
+
+    t2 = threading.Thread(
+        target=add_numbers,
+        args=(6, 11)
+    )
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print(numbers)
+
+
+# ==========================================
+# 15. Bank Account Simulation
+# ==========================================
+def program15():
+    balance = [1000]
+    lock = threading.Lock()
+
+    def withdraw(amount):
+        with lock:
+            if balance[0] >= amount:
+                balance[0] -= amount
+                print(f"Withdrawn: {amount}")
+            else:
+                print("Insufficient balance")
+
+    t1 = threading.Thread(target=withdraw, args=(300,))
+    t2 = threading.Thread(target=withdraw, args=(500,))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print("Final balance:", balance[0])
+
+
+# ==========================================
+# 16. Countdown
+# ==========================================
+def program16():
+    def countdown():
+        for i in range(5, 0, -1):
+            print(i)
+            time.sleep(1)
+
+    t = threading.Thread(target=countdown)
+
+    t.start()
+    t.join()
+
+    print("Time finished!")
+
+
+# ==========================================
+# 17. Worker Threads
+# ==========================================
+def program17():
+    def worker(number):
+        print(f"Worker {number} started")
+        time.sleep(1)
+        print(f"Worker {number} finished")
+
+    threads = []
+
+    for i in range(1, 4):
+        t = threading.Thread(target=worker, args=(i,))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+
+# ==========================================
+# 18. Producer and Consumer
+# ==========================================
+def program18():
+    items = queue.Queue()
+
+    def producer():
+        for i in range(1, 6):
+            items.put(i)
+            print("Produced:", i)
+
+    def consumer():
+        for _ in range(5):
+            item = items.get()
+            print("Consumed:", item)
+            items.task_done()
+
+    t1 = threading.Thread(target=producer)
+    t2 = threading.Thread(target=consumer)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+
+# ==========================================
+# 19. Multiple Tasks
+# ==========================================
+def program19():
+    def task(name, seconds):
+        print(f"{name} started")
+        time.sleep(seconds)
+        print(f"{name} completed")
+
+    t1 = threading.Thread(target=task, args=("Task 1", 2))
+    t2 = threading.Thread(target=task, args=("Task 2", 3))
+    t3 = threading.Thread(target=task, args=("Task 3", 1))
+
+    t1.start()
+    t2.start()
+    t3.start()
+
+    t1.join()
+    t2.join()
+    t3.join()
+
+    print("All tasks completed")
+
+
+# ==========================================
+# 20. Mini Project - Task Manager
+# ==========================================
+def program20():
+    def complete_task(task_name, seconds):
+        print(f"{task_name} started")
+        time.sleep(seconds)
+        print(f"{task_name} completed")
+
+    tasks = [
+        ("Download File", 3),
+        ("Process Data", 2),
+        ("Send Email", 1)
+    ]
+
+    threads = []
+
+    for name, seconds in tasks:
+        t = threading.Thread(
+            target=complete_task,
+            args=(name, seconds)
+        )
+
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    print("All tasks are completed!")
+
+
+# ==========================================
+# MAIN MENU
+# ==========================================
+programs = {
+    1: program1,
+    2: program2,
+    3: program3,
+    4: program4,
+    5: program5,
+    6: program6,
+    7: program7,
+    8: program8,
+    9: program9,
+    10: program10,
+    11: program11,
+    12: program12,
+    13: program13,
+    14: program14,
+    15: program15,
+    16: program16,
+    17: program17,
+    18: program18,
+    19: program19,
+    20: program20
+}
+
+
+while True:
+    print("\n========== MULTITHREADING PROGRAMS ==========")
+    print("Enter 1 to 20 to run a program")
+    print("Enter 0 to Exit")
+
+    try:
+        choice = int(input("\nEnter your choice: "))
+
+        if choice == 0:
+            print("Thank you!")
+            break
+
+        elif choice in programs:
+            print(f"\nRunning Program {choice}\n")
+            programs[choice]()
+
+        else:
+            print("Please enter a number between 1 and 20")
+
+    except ValueError:
+        print("Please enter a valid number")
