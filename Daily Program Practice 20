@@ -1,0 +1,539 @@
+# ============================================================
+# 20 DSA QUESTIONS WITH SOLUTIONS - PYTHON
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. Find the Largest Element in an Array
+# Question: Find the largest element in a given array.
+# ------------------------------------------------------------
+
+def find_largest(arr):
+    largest = arr[0]
+
+    for num in arr:
+        if num > largest:
+            largest = num
+
+    return largest
+
+
+# ------------------------------------------------------------
+# 2. Find the Second Largest Element
+# Question: Find the second largest distinct element.
+# ------------------------------------------------------------
+
+def second_largest(arr):
+    largest = float('-inf')
+    second = float('-inf')
+
+    for num in arr:
+        if num > largest:
+            second = largest
+            largest = num
+        elif largest > num > second:
+            second = num
+
+    return second if second != float('-inf') else None
+
+
+# ------------------------------------------------------------
+# 3. Reverse an Array
+# Question: Reverse an array without using reverse().
+# ------------------------------------------------------------
+
+def reverse_array(arr):
+    left = 0
+    right = len(arr) - 1
+
+    while left < right:
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
+
+    return arr
+
+
+# ------------------------------------------------------------
+# 4. Remove Duplicates from Sorted Array
+# Question: Remove duplicates in-place from a sorted array.
+# ------------------------------------------------------------
+
+def remove_duplicates(arr):
+    if not arr:
+        return 0
+
+    j = 0
+
+    for i in range(1, len(arr)):
+        if arr[i] != arr[j]:
+            j += 1
+            arr[j] = arr[i]
+
+    return j + 1
+
+
+# ------------------------------------------------------------
+# 5. Two Sum
+# Question: Find two indices whose values add up to target.
+# ------------------------------------------------------------
+
+def two_sum(arr, target):
+    seen = {}
+
+    for i, num in enumerate(arr):
+        complement = target - num
+
+        if complement in seen:
+            return [seen[complement], i]
+
+        seen[num] = i
+
+    return []
+
+
+# ------------------------------------------------------------
+# 6. Move All Zeros to the End
+# Question: Move all zeros to the end while maintaining order.
+# ------------------------------------------------------------
+
+def move_zeros(arr):
+    j = 0
+
+    for i in range(len(arr)):
+        if arr[i] != 0:
+            arr[i], arr[j] = arr[j], arr[i]
+            j += 1
+
+    return arr
+
+
+# ------------------------------------------------------------
+# 7. Binary Search
+# Question: Search for an element in a sorted array.
+# ------------------------------------------------------------
+
+def binary_search(arr, target):
+    left = 0
+    right = len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if arr[mid] == target:
+            return mid
+
+        elif arr[mid] < target:
+            left = mid + 1
+
+        else:
+            right = mid - 1
+
+    return -1
+
+
+# ------------------------------------------------------------
+# 8. Bubble Sort
+# Question: Sort an array using Bubble Sort.
+# ------------------------------------------------------------
+
+def bubble_sort(arr):
+    n = len(arr)
+
+    for i in range(n):
+        swapped = False
+
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+
+        if not swapped:
+            break
+
+    return arr
+
+
+# ------------------------------------------------------------
+# 9. Check Palindrome
+# Question: Check whether a string is a palindrome.
+# ------------------------------------------------------------
+
+def is_palindrome(s):
+    left = 0
+    right = len(s) - 1
+
+    while left < right:
+        if s[left] != s[right]:
+            return False
+
+        left += 1
+        right -= 1
+
+    return True
+
+
+# ------------------------------------------------------------
+# 10. Count Character Frequency
+# Question: Count frequency of every character in a string.
+# ------------------------------------------------------------
+
+def character_frequency(s):
+    frequency = {}
+
+    for char in s:
+        frequency[char] = frequency.get(char, 0) + 1
+
+    return frequency
+
+
+# ------------------------------------------------------------
+# 11. First Non-Repeating Character
+# Question: Find the first character that appears only once.
+# ------------------------------------------------------------
+
+def first_non_repeating(s):
+    frequency = {}
+
+    for char in s:
+        frequency[char] = frequency.get(char, 0) + 1
+
+    for char in s:
+        if frequency[char] == 1:
+            return char
+
+    return None
+
+
+# ------------------------------------------------------------
+# 12. Valid Parentheses
+# Question: Check if brackets are balanced.
+# ------------------------------------------------------------
+
+def valid_parentheses(s):
+    stack = []
+    pairs = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    }
+
+    for char in s:
+        if char in "([{":
+            stack.append(char)
+
+        elif char in ")]}":
+            if not stack or stack[-1] != pairs[char]:
+                return False
+
+            stack.pop()
+
+    return len(stack) == 0
+
+
+# ------------------------------------------------------------
+# 13. Implement Stack
+# Question: Implement a stack using a Python list.
+# ------------------------------------------------------------
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, value):
+        self.stack.append(value)
+
+    def pop(self):
+        if self.is_empty():
+            return None
+
+        return self.stack.pop()
+
+    def peek(self):
+        if self.is_empty():
+            return None
+
+        return self.stack[-1]
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+
+# ------------------------------------------------------------
+# 14. Implement Queue
+# Question: Implement a queue using collections.deque.
+# ------------------------------------------------------------
+
+from collections import deque
+
+
+class Queue:
+    def __init__(self):
+        self.queue = deque()
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.is_empty():
+            return None
+
+        return self.queue.popleft()
+
+    def front(self):
+        if self.is_empty():
+            return None
+
+        return self.queue[0]
+
+    def is_empty(self):
+        return len(self.queue) == 0
+
+
+# ------------------------------------------------------------
+# 15. Reverse a Linked List
+# Question: Reverse a singly linked list.
+# ------------------------------------------------------------
+
+class ListNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def reverse_linked_list(head):
+    previous = None
+    current = head
+
+    while current:
+        next_node = current.next
+        current.next = previous
+        previous = current
+        current = next_node
+
+    return previous
+
+
+# ------------------------------------------------------------
+# 16. Detect Cycle in Linked List
+# Question: Detect whether a linked list contains a cycle.
+# ------------------------------------------------------------
+
+def has_cycle(head):
+    slow = head
+    fast = head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True
+
+    return False
+
+
+# ------------------------------------------------------------
+# 17. Fibonacci Using Dynamic Programming
+# Question: Find the nth Fibonacci number.
+# ------------------------------------------------------------
+
+def fibonacci(n):
+    if n <= 1:
+        return n
+
+    dp = [0] * (n + 1)
+
+    dp[0] = 0
+    dp[1] = 1
+
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+
+    return dp[n]
+
+
+# ------------------------------------------------------------
+# 18. Maximum Subarray Sum
+# Question: Find the maximum sum of a contiguous subarray.
+# ------------------------------------------------------------
+
+def max_subarray_sum(arr):
+    current_sum = arr[0]
+    max_sum = arr[0]
+
+    for i in range(1, len(arr)):
+        current_sum = max(arr[i], current_sum + arr[i])
+        max_sum = max(max_sum, current_sum)
+
+    return max_sum
+
+
+# ------------------------------------------------------------
+# 19. Binary Tree Inorder Traversal
+# Question: Print the inorder traversal of a binary tree.
+# ------------------------------------------------------------
+
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+def inorder(root):
+    if root is None:
+        return []
+
+    return (
+        inorder(root.left)
+        + [root.value]
+        + inorder(root.right)
+    )
+
+
+# ------------------------------------------------------------
+# 20. BFS Traversal of Graph
+# Question: Perform Breadth First Search on a graph.
+# ------------------------------------------------------------
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    result = []
+
+    visited.add(start)
+
+    while queue:
+        node = queue.popleft()
+        result.append(node)
+
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    return result
+
+
+# ============================================================
+# TESTING ALL QUESTIONS
+# ============================================================
+
+if __name__ == "__main__":
+
+    # 1. Largest
+    arr = [10, 5, 20, 8, 15]
+    print("1. Largest:", find_largest(arr))
+
+    # 2. Second Largest
+    arr = [10, 5, 20, 8, 15]
+    print("2. Second Largest:", second_largest(arr))
+
+    # 3. Reverse Array
+    arr = [1, 2, 3, 4, 5]
+    print("3. Reverse:", reverse_array(arr))
+
+    # 4. Remove Duplicates
+    arr = [1, 1, 2, 2, 3, 4, 4]
+    length = remove_duplicates(arr)
+    print("4. Without Duplicates:", arr[:length])
+
+    # 5. Two Sum
+    arr = [2, 7, 11, 15]
+    print("5. Two Sum:", two_sum(arr, 9))
+
+    # 6. Move Zeros
+    arr = [0, 1, 0, 3, 12]
+    print("6. Move Zeros:", move_zeros(arr))
+
+    # 7. Binary Search
+    arr = [1, 3, 5, 7, 9, 11]
+    print("7. Binary Search:", binary_search(arr, 7))
+
+    # 8. Bubble Sort
+    arr = [5, 2, 8, 1, 3]
+    print("8. Bubble Sort:", bubble_sort(arr))
+
+    # 9. Palindrome
+    print("9. Palindrome:", is_palindrome("madam"))
+
+    # 10. Character Frequency
+    print("10. Frequency:", character_frequency("hello"))
+
+    # 11. First Non-Repeating
+    print("11. First Non-Repeating:",
+          first_non_repeating("swiss"))
+
+    # 12. Valid Parentheses
+    print("12. Valid Parentheses:",
+          valid_parentheses("{[()]}"))
+
+    # 13. Stack
+    stack = Stack()
+    stack.push(10)
+    stack.push(20)
+    stack.push(30)
+
+    print("13. Stack Pop:", stack.pop())
+    print("13. Stack Peek:", stack.peek())
+
+    # 14. Queue
+    queue = Queue()
+    queue.enqueue(10)
+    queue.enqueue(20)
+    queue.enqueue(30)
+
+    print("14. Queue Dequeue:", queue.dequeue())
+    print("14. Queue Front:", queue.front())
+
+    # 15. Reverse Linked List
+    head = ListNode(1)
+    head.next = ListNode(2)
+    head.next.next = ListNode(3)
+
+    head = reverse_linked_list(head)
+
+    result = []
+    current = head
+
+    while current:
+        result.append(current.value)
+        current = current.next
+
+    print("15. Reversed Linked List:", result)
+
+    # 16. Linked List Cycle
+    head = ListNode(1)
+    head.next = ListNode(2)
+    head.next.next = ListNode(3)
+    head.next.next.next = head.next
+
+    print("16. Has Cycle:", has_cycle(head))
+
+    # 17. Fibonacci
+    print("17. Fibonacci:", fibonacci(10))
+
+    # 18. Maximum Subarray
+    arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+    print("18. Maximum Subarray Sum:",
+          max_subarray_sum(arr))
+
+    # 19. Binary Tree Inorder
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+
+    print("19. Inorder Traversal:", inorder(root))
+
+    # 20. BFS
+    graph = {
+        0: [1, 2],
+        1: [0, 3],
+        2: [0, 4],
+        3: [1],
+        4: [2]
+    }
+
+    print("20. BFS Traversal:", bfs(graph, 0))
