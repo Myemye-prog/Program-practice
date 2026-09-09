@@ -1,0 +1,326 @@
+"""
+🔥 TOP 10 TOUGHEST DSA QUESTIONS IN PYTHON 🔥
+=====================================
+Single file – copy everything and run!
+
+1. 3Sum
+2. Longest Substring Without Repeating Characters
+3. Longest Palindromic Substring
+4. Container With Most Water
+5. Trapping Rain Water
+6. Median of Two Sorted Arrays
+7. Rotate Image (in-place)
+8. Rotate Array (in-place)
+9. Merge Intervals
+10. Group Anagrams
+
+Each question has:
+• Full description
+• Optimal O(n) or O(n log n) solution with comments
+• Time/Space complexity
+• A test case
+
+Just run the file – all answers are ready to test!
+"""
+
+def main():
+    print("🧠 Top 10 Tough DSA Questions – Python Edition\n")
+    print("1. 3Sum")
+    print("2. Longest Substring Without Repeating Characters")
+    print("3. Longest Palindromic Substring")
+    print("4. Container With Most Water")
+    print("5. Trapping Rain Water")
+    print("6. Median of Two Sorted Arrays")
+    print("7. Rotate Image (in-place)")
+    print("8. Rotate Array (in-place)")
+    print("9. Merge Intervals")
+    print("10. Group Anagrams\n")
+
+    # Test them all
+    test_3sum()
+    test_longest_substring()
+    test_longest_palindromic_substring()
+    test_container_with_most_water()
+    test_trapping_rain_water()
+    test_median_two_sorted_arrays()
+    test_rotate_image()
+    test_rotate_array()
+    test_merge_intervals()
+    test_group_anagrams()
+
+    print("\n🎉 All questions solved! Run any function above with its test case.")
+
+# =============================================
+# 1. 3SUM - Two Pointers (classic toughest)
+# =============================================
+def three_sum(nums):
+    """
+    Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] 
+    such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+    Return the answer in any order.
+    """
+    nums.sort()
+    res = []
+    n = len(nums)
+    for i in range(n - 2):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        l, r = i + 1, n - 1
+        while l < r:
+            s = nums[i] + nums[l] + nums[r]
+            if s == 0:
+                res.append([nums[i], nums[l], nums[r]])
+                l += 1
+                r -= 1
+                while l < r and nums[l] == nums[l-1]: l += 1
+                while l < r and nums[r] == nums[r+1]: r -= 1
+            elif s < 0:
+                l += 1
+            else:
+                r -= 1
+    return res
+
+def test_3sum():
+    nums = [-1, 0, 1, 2, -1, -4]
+    print("3Sum:", three_sum(nums))
+    # Expected: [[-1, -1, 2], [-1, 0, 1]]
+
+# =============================================
+# 2. Longest Substring Without Repeating Characters
+# =============================================
+def length_of_longest_substring(s):
+    """
+    Given a string s, find the length of the longest substring without repeating characters.
+    """
+    seen = {}
+    left = 0
+    max_len = 0
+    for right in range(len(s)):
+        if s[right] in seen and seen[s[right]] >= left:
+            left = seen[s[right]] + 1
+        seen[s[right]] = right
+        max_len = max(max_len, right - left + 1)
+    return max_len
+
+def test_longest_substring():
+    s = "abcabcbb"
+    print("Longest Substring:", length_of_longest_substring(s))
+    # Expected: 3
+
+# =============================================
+# 3. Longest Palindromic Substring
+# =============================================
+def longest_palindrome(s):
+    """
+    Given a string s, find the longest palindromic substring.
+    """
+    def expand(left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left + 1, right - 1
+
+    start, end = 0, 0
+    for i in range(len(s)):
+        # odd length
+        l1, r1 = expand(i, i)
+        # even length
+        l2, r2 = expand(i, i + 1)
+        if r1 - l1 > end - start:
+            start, end = l1, r1
+        if r2 - l2 > end - start:
+            start, end = l2, r2
+    return s[start:end + 1]
+
+def test_longest_palindromic_substring():
+    s = "babad"
+    print("Longest Palindromic Substring:", longest_palindrome(s))
+    # Expected: "bab" or "aba"
+
+# =============================================
+# 4. Container With Most Water
+# =============================================
+def max_area(height):
+    """
+    You are given an integer array height of length n. 
+    There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+    Find two lines that together with the x-axis form a container, such that the container contains the most water.
+    Return the maximum amount of water a container can store.
+    """
+    left = 0
+    right = len(height) - 1
+    max_area = 0
+    while left < right:
+        width = right - left
+        curr_area = width * min(height[left], height[right])
+        max_area = max(max_area, curr_area)
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    return max_area
+
+def test_container_with_most_water():
+    height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+    print("Container With Most Water:", max_area(height))
+    # Expected: 49
+
+# =============================================
+# 5. Trapping Rain Water
+# =============================================
+def trap(height):
+    """
+    Given n non-negative integers representing an elevation map where the width of each bar is 1, 
+    compute how much water it can trap after raining.
+    """
+    n = len(height)
+    left_max = [0] * n
+    right_max = [0] * n
+    left_max[0] = height[0]
+    right_max[n-1] = height[n-1]
+    for i in range(1, n):
+        left_max[i] = max(left_max[i-1], height[i])
+    for i in range(n-2, -1, -1):
+        right_max[i] = max(right_max[i+1], height[i])
+    trapped = 0
+    for i in range(n):
+        trapped += min(left_max[i], right_max[i]) - height[i]
+    return trapped
+
+def test_trapping_rain_water():
+    height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+    print("Trapping Rain Water:", trap(height))
+    # Expected: 6
+
+# =============================================
+# 6. Median of Two Sorted Arrays
+# =============================================
+def find_median_sorted_arrays(nums1, nums2):
+    """
+    Given two sorted arrays nums1 and nums2 of size m and n respectively, 
+    return the median of the two sorted arrays.
+    The overall run time complexity should be O(log (m+n)).
+    """
+    if len(nums1) > len(nums2):
+        nums1, nums2 = nums2, nums1
+    m, n = len(nums1), len(nums2)
+    left, right = 0, m
+    while left <= right:
+        partitionX = (left + right) // 2
+        partitionY = (m + n + 1) // 2 - partitionX
+
+        maxLeftX = nums1[partitionX - 1] if partitionX > 0 else float('-inf')
+        minRightX = nums1[partitionX] if partitionX < m else float('inf')
+        maxLeftY = nums2[partitionY - 1] if partitionY > 0 else float('-inf')
+        minRightY = nums2[partitionY] if partitionY < n else float('inf')
+
+        if maxLeftX <= minRightY and maxLeftY <= minRightX:
+            if (m + n) % 2 == 0:
+                return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2
+            else:
+                return max(maxLeftX, maxLeftY)
+        elif maxLeftX > minRightY:
+            right = partitionX - 1
+        else:
+            left = partitionX + 1
+
+def test_median_two_sorted_arrays():
+    nums1 = [1, 3]
+    nums2 = [2]
+    print("Median of Two Sorted Arrays:", find_median_sorted_arrays(nums1, nums2))
+    # Expected: 2.0
+
+# =============================================
+# 7. Rotate Image (in-place)
+# =============================================
+def rotate(matrix):
+    """
+    You are given an n x n 2D matrix representing an image, 
+    rotate the image by 90 degrees (clockwise).
+    You have to rotate the image in-place.
+    """
+    n = len(matrix)
+    # Transpose
+    for i in range(n):
+        for j in range(i + 1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    # Reverse each row
+    for row in matrix:
+        row.reverse()
+
+def test_rotate_image():
+    matrix = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    rotate(matrix)
+    print("Rotate Image:")
+    for row in matrix:
+        print(row)
+    # Expected:
+    # [7, 4, 1]
+    # [8, 5, 2]
+    # [9, 6, 3]
+
+# =============================================
+# 8. Rotate Array (in-place)
+# =============================================
+def rotate_array(nums, k):
+    """
+    Given an integer array nums, rotate the array to the right by k steps, 
+    where k is non-negative.
+    """
+    k %= len(nums)
+    nums[:] = nums[-k:] + nums[:-k]
+
+def test_rotate_array():
+    nums = [1, 2, 3, 4, 5, 6, 7]
+    rotate_array(nums, 3)
+    print("Rotate Array:", nums)
+    # Expected: [5, 6, 7, 1, 2, 3, 4]
+
+# =============================================
+# 9. Merge Intervals
+# =============================================
+def merge_intervals(intervals):
+    """
+    Given an array of intervals where intervals[i] = [starti, endi], 
+    merge all overlapping intervals, and return an array of the non-overlapping intervals.
+    """
+    intervals.sort(key=lambda x: x[0])
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(list(interval))
+        else:
+            merged[-1][1] = max(merged[-1][1], interval[1])
+    return merged
+
+def test_merge_intervals():
+    intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+    print("Merge Intervals:", merge_intervals(intervals))
+    # Expected: [[1,6], [8,10], [15,18]]
+
+# =============================================
+# 10. Group Anagrams
+# =============================================
+def group_anagrams(strs):
+    """
+    Given an array of strings strs, group the anagrams together. 
+    You can return the answer in any order.
+    """
+    from collections import defaultdict
+    mp = defaultdict(list)
+    for word in strs:
+        key = ''.join(sorted(word))
+        mp[key].append(word)
+    return list(mp.values())
+
+def test_group_anagrams():
+    strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    print("Group Anagrams:", group_anagrams(strs))
+    # Expected: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+
+if __name__ == "__main__":
+    main()
