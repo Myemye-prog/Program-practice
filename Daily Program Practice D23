@@ -1,0 +1,181 @@
+# 20 Tuple DSA Practice Questions with Python Code
+# Level: Beginner to Intermediate
+
+# 1. Find the maximum element in a tuple
+def q1_max_element(t):
+    return max(t)
+
+# Example: q1_max_element((4, 8, 2, 9, 1)) -> 9
+
+
+# 2. Find the minimum element in a tuple
+def q2_min_element(t):
+    return min(t)
+
+
+# 3. Find the sum of all elements
+def q3_sum_elements(t):
+    return sum(t)
+
+
+# 4. Count even and odd numbers
+def q4_count_even_odd(t):
+    even = sum(1 for x in t if x % 2 == 0)
+    odd = len(t) - even
+    return even, odd
+
+
+# 5. Reverse a tuple
+def q5_reverse(t):
+    return t[::-1]
+
+
+# 6. Remove duplicate elements while preserving order
+def q6_remove_duplicates(t):
+    result = []
+    seen = set()
+    for x in t:
+        if x not in seen:
+            seen.add(x)
+            result.append(x)
+    return tuple(result)
+
+
+# 7. Find the frequency of each element
+def q7_frequency(t):
+    freq = {}
+    for x in t:
+        freq[x] = freq.get(x, 0) + 1
+    return freq
+
+
+# 8. Find the second largest distinct element
+def q8_second_largest(t):
+    unique = sorted(set(t), reverse=True)
+    return unique[1] if len(unique) >= 2 else None
+
+
+# 9. Find the second smallest distinct element
+def q9_second_smallest(t):
+    unique = sorted(set(t))
+    return unique[1] if len(unique) >= 2 else None
+
+
+# 10. Check whether a tuple is a palindrome
+def q10_is_palindrome(t):
+    return t == t[::-1]
+
+
+# 11. Find all duplicate elements
+def q11_find_duplicates(t):
+    freq = q7_frequency(t)
+    return tuple(x for x in freq if freq[x] > 1)
+
+
+# 12. Find the index of a given element
+def q12_find_index(t, target):
+    for i, x in enumerate(t):
+        if x == target:
+            return i
+    return -1
+
+
+# 13. Separate positive, negative and zero
+def q13_separate_numbers(t):
+    positive = tuple(x for x in t if x > 0)
+    negative = tuple(x for x in t if x < 0)
+    zero = tuple(x for x in t if x == 0)
+    return positive, negative, zero
+
+
+# 14. Sort a tuple without changing the original tuple
+def q14_sort_tuple(t):
+    return tuple(sorted(t))
+
+
+# 15. Merge two tuples
+def q15_merge(t1, t2):
+    return t1 + t2
+
+
+# 16. Find common elements between two tuples
+def q16_common_elements(t1, t2):
+    return tuple(dict.fromkeys(x for x in t1 if x in t2))
+
+
+# 17. Find the missing number from 1 to n
+# Example: (1, 2, 3, 5), n=5 -> 4
+def q17_missing_number(t, n):
+    expected = n * (n + 1) // 2
+    return expected - sum(t)
+
+
+# 18. Find the pair with a given target sum
+def q18_pair_with_target_sum(t, target):
+    seen = set()
+    pairs = []
+    for x in t:
+        complement = target - x
+        if complement in seen:
+            pairs.append((complement, x))
+        seen.add(x)
+    return tuple(pairs)
+
+
+# 19. Move all zeros to the end
+def q19_move_zeros_to_end(t):
+    non_zero = tuple(x for x in t if x != 0)
+    zeros = (0,) * (len(t) - len(non_zero))
+    return non_zero + zeros
+
+
+# 20. Find the longest consecutive increasing run
+# Example: (1, 2, 3, 1, 2, 5, 6) -> (1, 2, 5, 6)
+def q20_longest_increasing_run(t):
+    if not t:
+        return ()
+
+    best_start = start = 0
+    best_len = current_len = 1
+
+    for i in range(1, len(t)):
+        if t[i] > t[i - 1]:
+            current_len += 1
+        else:
+            current_len = 1
+            start = i
+
+        if current_len > best_len:
+            best_len = current_len
+            best_start = start
+
+    return t[best_start:best_start + best_len]
+
+
+# ---------------------------------------------------------
+# TESTING ALL 20 QUESTIONS
+# ---------------------------------------------------------
+if __name__ == "__main__":
+    t = (4, 2, 7, 2, 9, 0, -3, 4, 6)
+
+    print("1. Maximum:", q1_max_element(t))
+    print("2. Minimum:", q2_min_element(t))
+    print("3. Sum:", q3_sum_elements(t))
+    print("4. Even, Odd:", q4_count_even_odd(t))
+    print("5. Reverse:", q5_reverse(t))
+    print("6. Remove duplicates:", q6_remove_duplicates(t))
+    print("7. Frequency:", q7_frequency(t))
+    print("8. Second largest:", q8_second_largest(t))
+    print("9. Second smallest:", q9_second_smallest(t))
+    print("10. Palindrome:", q10_is_palindrome(t))
+    print("11. Duplicates:", q11_find_duplicates(t))
+    print("12. Index of 7:", q12_find_index(t, 7))
+    print("13. Positive, Negative, Zero:", q13_separate_numbers(t))
+    print("14. Sorted:", q14_sort_tuple(t))
+    print("15. Merge:", q15_merge((1, 2), (3, 4)))
+    print("16. Common:", q16_common_elements((1, 2, 3), (2, 3, 4)))
+    print("17. Missing number:", q17_missing_number((1, 2, 3, 5), 5))
+    print("18. Target-sum pairs:", q18_pair_with_target_sum((2, 7, 11, 15, 3), 10))
+    print("19. Move zeros:", q19_move_zeros_to_end((0, 1, 0, 3, 2, 0)))
+    print("20. Longest increasing run:",
+          q20_longest_increasing_run((1, 2, 3, 1, 2, 5, 6)))
