@@ -1,0 +1,415 @@
+# ============================================================
+# 1. Reverse a String
+# ============================================================
+
+def reverse_string(s):
+    return s[::-1]
+
+print(reverse_string("hello"))
+# Output: olleh
+
+
+# ============================================================
+# 2. Check Palindrome
+# ============================================================
+
+def is_palindrome(s):
+    return s == s[::-1]
+
+print(is_palindrome("madam"))
+# Output: True
+
+
+# ============================================================
+# 3. Count Vowels and Consonants
+# ============================================================
+
+def count_vowels_consonants(s):
+    vowels = "aeiouAEIOU"
+    v = c = 0
+
+    for ch in s:
+        if ch.isalpha():
+            if ch in vowels:
+                v += 1
+            else:
+                c += 1
+
+    return v, c
+
+print(count_vowels_consonants("Hello World"))
+# Output: (3, 7)
+
+
+# ============================================================
+# 4. Count Frequency of Each Character
+# ============================================================
+
+def character_frequency(s):
+    freq = {}
+
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+
+    return freq
+
+print(character_frequency("hello"))
+# Output: {'h': 1, 'e': 1, 'l': 2, 'o': 1}
+
+
+# ============================================================
+# 5. First Non-Repeating Character
+# ============================================================
+
+def first_non_repeating(s):
+    freq = {}
+
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+
+    for ch in s:
+        if freq[ch] == 1:
+            return ch
+
+    return None
+
+print(first_non_repeating("swiss"))
+# Output: w
+
+
+# ============================================================
+# 6. Remove Duplicate Characters
+# ============================================================
+
+def remove_duplicates(s):
+    seen = set()
+    result = []
+
+    for ch in s:
+        if ch not in seen:
+            seen.add(ch)
+            result.append(ch)
+
+    return "".join(result)
+
+print(remove_duplicates("programming"))
+# Output: progamin
+
+
+# ============================================================
+# 7. Check Anagram
+# ============================================================
+
+def are_anagrams(s1, s2):
+    return sorted(s1) == sorted(s2)
+
+print(are_anagrams("listen", "silent"))
+# Output: True
+
+
+# ============================================================
+# 8. Reverse Words in a Sentence
+# ============================================================
+
+def reverse_words(s):
+    return " ".join(s.split()[::-1])
+
+print(reverse_words("I love Python"))
+# Output: Python love I
+
+
+# ============================================================
+# 9. Find Duplicate Characters
+# ============================================================
+
+def duplicate_characters(s):
+    freq = {}
+
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+
+    result = []
+
+    for ch in freq:
+        if freq[ch] > 1:
+            result.append(ch)
+
+    return result
+
+print(duplicate_characters("programming"))
+# Output: ['r', 'g', 'm']
+
+
+# ============================================================
+# 10. Check if String Contains Only Digits
+# ============================================================
+
+def only_digits(s):
+    return s.isdigit()
+
+print(only_digits("12345"))
+# Output: True
+
+
+# ============================================================
+# 11. Find Longest Word
+# ============================================================
+
+def longest_word(s):
+    words = s.split()
+
+    longest = ""
+
+    for word in words:
+        if len(word) > len(longest):
+            longest = word
+
+    return longest
+
+print(longest_word("I am learning DSA"))
+# Output: learning
+
+
+# ============================================================
+# 12. Count Number of Words
+# ============================================================
+
+def count_words(s):
+    return len(s.split())
+
+print(count_words("I love DSA"))
+# Output: 3
+
+
+# ============================================================
+# 13. String Compression
+# ============================================================
+
+def compress_string(s):
+    if not s:
+        return ""
+
+    result = []
+    count = 1
+
+    for i in range(1, len(s)):
+        if s[i] == s[i - 1]:
+            count += 1
+        else:
+            result.append(s[i - 1] + str(count))
+            count = 1
+
+    result.append(s[-1] + str(count))
+
+    return "".join(result)
+
+print(compress_string("aaabbc"))
+# Output: a3b2c1
+
+
+# ============================================================
+# 14. Most Frequent Character
+# ============================================================
+
+def most_frequent_character(s):
+    freq = {}
+
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
+
+    return max(freq, key=freq.get)
+
+print(most_frequent_character("banana"))
+# Output: a
+
+
+# ============================================================
+# 15. Check String Rotation
+# ============================================================
+
+def is_rotation(s1, s2):
+    return len(s1) == len(s2) and s2 in (s1 + s1)
+
+print(is_rotation("abcd", "cdab"))
+# Output: True
+
+
+# ============================================================
+# 16. Longest Common Prefix
+# ============================================================
+
+def longest_common_prefix(strings):
+    if not strings:
+        return ""
+
+    prefix = strings[0]
+
+    for s in strings[1:]:
+
+        while not s.startswith(prefix):
+            prefix = prefix[:-1]
+
+            if prefix == "":
+                return ""
+
+    return prefix
+
+print(longest_common_prefix(
+    ["flower", "flow", "flight"]
+))
+# Output: fl
+
+
+# ============================================================
+# 17. Valid Parentheses
+# ============================================================
+
+def valid_parentheses(s):
+    stack = []
+
+    pairs = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    }
+
+    for ch in s:
+
+        if ch in "([{":
+            stack.append(ch)
+
+        elif ch in ")]}":
+
+            if not stack:
+                return False
+
+            if stack[-1] != pairs[ch]:
+                return False
+
+            stack.pop()
+
+    return len(stack) == 0
+
+
+print(valid_parentheses("({[]})"))
+# Output: True
+
+
+# ============================================================
+# 18. Longest Substring Without Repeating Characters
+# ============================================================
+
+def longest_unique_substring(s):
+
+    seen = set()
+
+    left = 0
+    max_length = 0
+
+    for right in range(len(s)):
+
+        while s[right] in seen:
+            seen.remove(s[left])
+            left += 1
+
+        seen.add(s[right])
+
+        max_length = max(
+            max_length,
+            right - left + 1
+        )
+
+    return max_length
+
+
+print(longest_unique_substring("abcabcbb"))
+# Output: 3
+
+
+# ============================================================
+# 19. Check if Two Strings Are Isomorphic
+# ============================================================
+
+def are_isomorphic(s1, s2):
+
+    if len(s1) != len(s2):
+        return False
+
+    map1 = {}
+    map2 = {}
+
+    for a, b in zip(s1, s2):
+
+        if a in map1 and map1[a] != b:
+            return False
+
+        if b in map2 and map2[b] != a:
+            return False
+
+        map1[a] = b
+        map2[b] = a
+
+    return True
+
+
+print(are_isomorphic("egg", "add"))
+# Output: True
+
+
+# ============================================================
+# 20. Minimum Window Substring
+# ============================================================
+
+def min_window(s, t):
+
+    if not s or not t:
+        return ""
+
+    need = {}
+
+    for ch in t:
+        need[ch] = need.get(ch, 0) + 1
+
+    have = {}
+
+    required = len(need)
+    formed = 0
+
+    left = 0
+    best = None
+
+    for right in range(len(s)):
+
+        ch = s[right]
+
+        have[ch] = have.get(ch, 0) + 1
+
+        if ch in need and have[ch] == need[ch]:
+            formed += 1
+
+        while formed == required:
+
+            length = right - left + 1
+
+            if best is None or length < best[0]:
+                best = (length, left, right)
+
+            left_char = s[left]
+
+            have[left_char] -= 1
+
+            if (left_char in need and
+                    have[left_char] < need[left_char]):
+
+                formed -= 1
+
+            left += 1
+
+    if best is None:
+        return ""
+
+    return s[best[1]:best[2] + 1]
+
+
+print(min_window("ADOBECODEBANC", "ABC"))
+# Output: BANC
