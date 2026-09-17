@@ -1,0 +1,249 @@
+
+
+# ============================================================
+# 1. REVERSE A STRING
+# ============================================================
+# Problem:
+# Given a string, return the string in reverse order.
+#
+# Example:
+# Input:  "hello"
+# Output: "olleh"
+
+
+def reverse_string(s):
+    return s[::-1]
+
+
+print("1. Reverse String:")
+print(reverse_string("hello"))
+
+
+# ============================================================
+# 2. CHECK PALINDROME
+# ============================================================
+# Problem:
+# Check whether a string reads the same forward and backward.
+#
+# Example:
+# Input:  "madam"
+# Output: True
+
+
+def is_palindrome(s):
+    return s == s[::-1]
+
+
+print("\n2. Palindrome:")
+print(is_palindrome("madam"))
+
+
+# ============================================================
+# 3. FIND THE LARGEST NUMBER IN A LIST
+# ============================================================
+# Problem:
+# Find the largest element without using max().
+#
+# Example:
+# Input:  [10, 25, 7, 40, 15]
+# Output: 40
+
+
+def find_largest(numbers):
+    largest = numbers[0]
+
+    for num in numbers:
+        if num > largest:
+            largest = num
+
+    return largest
+
+
+print("\n3. Largest Number:")
+print(find_largest([10, 25, 7, 40, 15]))
+
+
+# ============================================================
+# 4. FIND SECOND LARGEST NUMBER
+# ============================================================
+# Problem:
+# Find the second largest unique number in a list.
+#
+# Example:
+# Input:  [10, 20, 5, 30, 25]
+# Output: 25
+
+
+def second_largest(numbers):
+    unique_numbers = list(set(numbers))
+
+    if len(unique_numbers) < 2:
+        return None
+
+    unique_numbers.sort(reverse=True)
+
+    return unique_numbers[1]
+
+
+print("\n4. Second Largest Number:")
+print(second_largest([10, 20, 5, 30, 25]))
+
+
+# ============================================================
+# 5. COUNT VOWELS IN A STRING
+# ============================================================
+# Problem:
+# Count the number of vowels in a given string.
+#
+# Example:
+# Input:  "programming"
+# Output: 3
+
+
+def count_vowels(s):
+    vowels = "aeiou"
+    count = 0
+
+    for char in s.lower():
+        if char in vowels:
+            count += 1
+
+    return count
+
+
+print("\n5. Count Vowels:")
+print(count_vowels("programming"))
+
+
+# ============================================================
+# 6. CHECK PRIME NUMBER
+# ============================================================
+# Problem:
+# Determine whether a number is prime.
+#
+# Example:
+# Input:  17
+# Output: True
+
+
+def is_prime(n):
+    if n <= 1:
+        return False
+
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+
+    return True
+
+
+print("\n6. Prime Number:")
+print(is_prime(17))
+
+
+# ============================================================
+# 7. FIBONACCI SERIES
+# ============================================================
+# Problem:
+# Generate the first n Fibonacci numbers.
+#
+# Example:
+# Input:  7
+# Output: [0, 1, 1, 2, 3, 5, 8]
+
+
+def fibonacci(n):
+    result = []
+
+    a, b = 0, 1
+
+    for _ in range(n):
+        result.append(a)
+        a, b = b, a + b
+
+    return result
+
+
+print("\n7. Fibonacci Series:")
+print(fibonacci(7))
+
+
+# ============================================================
+# 8. FIND DUPLICATE ELEMENTS
+# ============================================================
+# Problem:
+# Find duplicate elements in a list.
+#
+# Example:
+# Input:  [1, 2, 3, 2, 4, 3, 5]
+# Output: [2, 3]
+
+
+def find_duplicates(numbers):
+    seen = set()
+    duplicates = set()
+
+    for num in numbers:
+        if num in seen:
+            duplicates.add(num)
+        else:
+            seen.add(num)
+
+    return list(duplicates)
+
+
+print("\n8. Duplicate Elements:")
+print(find_duplicates([1, 2, 3, 2, 4, 3, 5]))
+
+
+# ============================================================
+# 9. TWO SUM
+# ============================================================
+# Problem:
+# Find two numbers whose sum equals the target.
+#
+# Example:
+# Input:  numbers = [2, 7, 11, 15], target = 9
+# Output: [0, 1]
+
+
+def two_sum(numbers, target):
+    seen = {}
+
+    for i, num in enumerate(numbers):
+        required = target - num
+
+        if required in seen:
+            return [seen[required], i]
+
+        seen[num] = i
+
+    return []
+
+
+print("\n9. Two Sum:")
+print(two_sum([2, 7, 11, 15], 9))
+
+
+# ============================================================
+# 10. CHECK ANAGRAM
+# ============================================================
+# Problem:
+# Check whether two strings are anagrams.
+#
+# Example:
+# Input:  "listen", "silent"
+# Output: True
+
+
+def is_anagram(s1, s2):
+    return sorted(s1.lower()) == sorted(s2.lower())
+
+
+print("\n10. Anagram:")
+print(is_anagram("listen", "silent"))
+
+
+# ============================================================
+# END
+# ============================================================
