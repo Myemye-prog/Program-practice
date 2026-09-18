@@ -1,0 +1,50 @@
+from fastapi import FastAPI
+
+app = FastAPI(title="My First Python API")
+
+
+# Home
+@app.get("/")
+def home():
+    return {
+        "message": "Welcome to My Python API!"
+    }
+
+
+# GET
+@app.get("/users/{user_id}")
+def get_user(user_id: int):
+    return {
+        "user_id": user_id,
+        "name": "John",
+        "email": "john@example.com"
+    }
+
+
+# POST
+@app.post("/users")
+def create_user(name: str, email: str):
+    return {
+        "message": "User created successfully",
+        "name": name,
+        "email": email
+    }
+
+
+# PUT
+@app.put("/users/{user_id}")
+def update_user(user_id: int, name: str):
+    return {
+        "message": "User updated successfully",
+        "user_id": user_id,
+        "new_name": name
+    }
+
+
+# DELETE
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int):
+    return {
+        "message": "User deleted successfully",
+        "user_id": user_id
+    }
