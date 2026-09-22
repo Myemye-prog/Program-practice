@@ -1,0 +1,480 @@
+# Parking Management System
+
+# Simple CLI project using Python basics and NumPy
+
+import numpy as np
+
+# Available vehicle types
+
+vehicle_types = ("Car", "Bike", "Auto", "Truck")
+
+# Parking details
+
+vehicles = [
+{
+"ticket": 101,
+"number": "TN01AB1234",
+"owner": "Papun",
+"type": "Car",
+"hours": 3
+},
+{
+"ticket": 102,
+"number": "TN02CD5678",
+"owner": "Amit",
+"type": "Bike",
+"hours": 5
+},
+{
+"ticket": 103,
+"number": "TN03EF9012",
+"owner": "Rahul",
+"type": "Truck",
+"hours": 2
+}
+]
+
+# Calculate parking fee
+
+def calculate_fee(vehicle_type, hours):
+if vehicle_type == "Car":
+rate = 30
+
+```
+elif vehicle_type == "Bike":
+    rate = 15
+
+elif vehicle_type == "Auto":
+    rate = 20
+
+elif vehicle_type == "Truck":
+    rate = 50
+
+else:
+    rate = 0
+
+return rate * hours
+```
+
+# Add a new vehicle
+
+def add_vehicle():
+print("\n--- Add Vehicle ---")
+
+```
+try:
+    ticket = int(input("Enter ticket number: "))
+
+    # Check ticket number
+    for vehicle in vehicles:
+        if vehicle["ticket"] == ticket:
+            print("Ticket number already exists.")
+            return
+
+    number = input("Enter vehicle number: ").strip().upper()
+    owner = input("Enter owner name: ").strip().title()
+
+    if number == "" or owner == "":
+        print("Vehicle number and owner name are required.")
+        return
+
+    print("\nVehicle Types:")
+    for item in vehicle_types:
+        print(item)
+
+    vehicle_type = input("Enter vehicle type: ").strip().title()
+
+    if vehicle_type not in vehicle_types:
+        print("Invalid vehicle type.")
+        return
+
+    hours = float(input("Enter parking hours: "))
+
+    if hours <= 0:
+        print("Hours should be greater than zero.")
+        return
+
+    vehicle = {
+        "ticket": ticket,
+        "number": number,
+        "owner": owner,
+        "type": vehicle_type,
+        "hours": hours
+    }
+
+    vehicles.append(vehicle)
+
+    fee = calculate_fee(vehicle_type, hours)
+
+    print("Vehicle added successfully.")
+    print("Parking fee: ₹", fee)
+
+except ValueError:
+    print("Please enter a valid value.")
+```
+
+# Show all parked vehicles
+
+def show_vehicles():
+print("\n--- Parked Vehicles ---")
+
+```
+if len(vehicles) == 0:
+    print("No vehicles found.")
+    return
+
+for vehicle in vehicles:
+
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+
+    print("--------------------------------")
+    print("Ticket :", vehicle["ticket"])
+    print("Number :", vehicle["number"])
+    print("Owner  :", vehicle["owner"])
+    print("Type   :", vehicle["type"])
+    print("Hours  :", vehicle["hours"])
+    print("Fee    : ₹", fee)
+```
+
+# Search vehicle by number
+
+def search_vehicle():
+print("\n--- Search Vehicle ---")
+
+```
+number = input("Enter vehicle number: ").strip().upper()
+
+for vehicle in vehicles:
+
+    if vehicle["number"] == number:
+
+        fee = calculate_fee(
+            vehicle["type"],
+            vehicle["hours"]
+        )
+
+        print("\nVehicle found")
+        print("Ticket :", vehicle["ticket"])
+        print("Number :", vehicle["number"])
+        print("Owner  :", vehicle["owner"])
+        print("Type   :", vehicle["type"])
+        print("Hours  :", vehicle["hours"])
+        print("Fee    : ₹", fee)
+
+        return
+
+print("Vehicle not found.")
+```
+
+# Calculate fee without adding a vehicle
+
+def show_fee():
+print("\n--- Parking Fee Calculator ---")
+
+```
+print("Vehicle Types:")
+
+for item in vehicle_types:
+    print(item)
+
+vehicle_type = input("Enter vehicle type: ").strip().title()
+
+if vehicle_type not in vehicle_types:
+    print("Invalid vehicle type.")
+    return
+
+try:
+    hours = float(input("Enter parking hours: "))
+
+    if hours <= 0:
+        print("Hours should be greater than zero.")
+        return
+
+    fee = calculate_fee(vehicle_type, hours)
+
+    print("Parking fee: ₹", fee)
+
+except ValueError:
+    print("Please enter a valid number.")
+```
+
+# Remove vehicle when it leaves
+
+def exit_vehicle():
+print("\n--- Vehicle Exit ---")
+
+```
+try:
+    ticket = int(input("Enter ticket number: "))
+
+    for vehicle in vehicles:
+
+        if vehicle["ticket"] == ticket:
+
+            fee = calculate_fee(
+                vehicle["type"],
+                vehicle["hours"]
+            )
+
+            print("\nVehicle details")
+            print("Number:", vehicle["number"])
+            print("Owner :", vehicle["owner"])
+            print("Fee   : ₹", fee)
+
+            confirm = input("Vehicle leaving? (y/n): ").strip().lower()
+
+            if confirm == "y":
+                vehicles.remove(vehicle)
+                print("Vehicle removed from parking.")
+
+            else:
+                print("Exit cancelled.")
+
+            return
+
+    print("Ticket not found.")
+
+except ValueError:
+    print("Enter a valid ticket number.")
+```
+
+# Show vehicle with highest parking fee
+
+def highest_fee():
+print("\n--- Highest Parking Fee ---")
+
+```
+if len(vehicles) == 0:
+    print("No vehicles found.")
+    return
+
+fees = []
+
+for vehicle in vehicles:
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+    fees.append(fee)
+
+fee_array = np.array(fees)
+highest = np.max(fee_array)
+
+for vehicle in vehicles:
+
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+
+    if fee == highest:
+        print("Vehicle:", vehicle["number"])
+        print("Owner  :", vehicle["owner"])
+        print("Fee    : ₹", highest)
+```
+
+# Show vehicle with lowest parking fee
+
+def lowest_fee():
+print("\n--- Lowest Parking Fee ---")
+
+```
+if len(vehicles) == 0:
+    print("No vehicles found.")
+    return
+
+fees = []
+
+for vehicle in vehicles:
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+    fees.append(fee)
+
+fee_array = np.array(fees)
+lowest = np.min(fee_array)
+
+for vehicle in vehicles:
+
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+
+    if fee == lowest:
+        print("Vehicle:", vehicle["number"])
+        print("Owner  :", vehicle["owner"])
+        print("Fee    : ₹", lowest)
+```
+
+# Find average parking fee
+
+def average_fee():
+print("\n--- Average Parking Fee ---")
+
+```
+if len(vehicles) == 0:
+    print("No vehicles found.")
+    return
+
+fees = []
+
+for vehicle in vehicles:
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+    fees.append(fee)
+
+fee_array = np.array(fees)
+
+average = np.mean(fee_array)
+
+print("Average parking fee: ₹", round(average, 2))
+```
+
+# Calculate total money collected
+
+def total_revenue():
+print("\n--- Total Revenue ---")
+
+```
+total = 0
+
+for vehicle in vehicles:
+
+    fee = calculate_fee(
+        vehicle["type"],
+        vehicle["hours"]
+    )
+
+    total = total + fee
+
+print("Total revenue: ₹", total)
+```
+
+# Count each type of vehicle
+
+def vehicle_summary():
+print("\n--- Vehicle Summary ---")
+
+```
+summary = {
+    "Car": 0,
+    "Bike": 0,
+    "Auto": 0,
+    "Truck": 0
+}
+
+for vehicle in vehicles:
+    vehicle_type = vehicle["type"]
+    summary[vehicle_type] += 1
+
+for vehicle_type, count in summary.items():
+    print(vehicle_type, ":", count)
+```
+
+# Delete a parking record
+
+def delete_vehicle():
+print("\n--- Delete Record ---")
+
+```
+try:
+    ticket = int(input("Enter ticket number: "))
+
+    for vehicle in vehicles:
+
+        if vehicle["ticket"] == ticket:
+
+            confirm = input(
+                "Delete this record? (y/n): "
+            ).strip().lower()
+
+            if confirm == "y":
+                vehicles.remove(vehicle)
+                print("Record deleted.")
+            else:
+                print("Delete cancelled.")
+
+            return
+
+    print("Ticket not found.")
+
+except ValueError:
+    print("Enter a valid ticket number.")
+```
+
+# Main menu
+
+def main():
+while True:
+
+```
+    print("\n==============================")
+    print("   PARKING MANAGEMENT SYSTEM")
+    print("==============================")
+    print("1. Add Vehicle")
+    print("2. Show Vehicles")
+    print("3. Search Vehicle")
+    print("4. Calculate Fee")
+    print("5. Vehicle Exit")
+    print("6. Highest Fee")
+    print("7. Lowest Fee")
+    print("8. Average Fee")
+    print("9. Total Revenue")
+    print("10. Vehicle Summary")
+    print("11. Delete Record")
+    print("12. Exit")
+    print("==============================")
+
+    choice = input("Enter your choice: ").strip()
+
+    if choice == "1":
+        add_vehicle()
+
+    elif choice == "2":
+        show_vehicles()
+
+    elif choice == "3":
+        search_vehicle()
+
+    elif choice == "4":
+        show_fee()
+
+    elif choice == "5":
+        exit_vehicle()
+
+    elif choice == "6":
+        highest_fee()
+
+    elif choice == "7":
+        lowest_fee()
+
+    elif choice == "8":
+        average_fee()
+
+    elif choice == "9":
+        total_revenue()
+
+    elif choice == "10":
+        vehicle_summary()
+
+    elif choice == "11":
+        delete_vehicle()
+
+    elif choice == "12":
+        print("Thank you. Program closed.")
+        break
+
+    else:
+        print("Invalid choice. Please try again.")
+```
+
+# Start the program
+
+main()
