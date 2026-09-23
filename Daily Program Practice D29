@@ -1,0 +1,126 @@
+# Student Management System
+
+students = []
+
+
+def add_student():
+    name = input("Enter student name: ")
+    age = int(input("Enter age: "))
+    course = input("Enter course: ")
+    marks = float(input("Enter marks: "))
+
+    student = {
+        "name": name,
+        "age": age,
+        "course": course,
+        "marks": marks
+    }
+
+    students.append(student)
+    print("\nStudent added successfully!")
+
+
+def view_students():
+    if not students:
+        print("\nNo students found.")
+        return
+
+    print("\n===== Student List =====")
+
+    for i, student in enumerate(students, start=1):
+        print(f"\nStudent {i}")
+        print("Name   :", student["name"])
+        print("Age    :", student["age"])
+        print("Course :", student["course"])
+        print("Marks  :", student["marks"])
+
+
+def search_student():
+    name = input("Enter student name to search: ")
+
+    found = False
+
+    for student in students:
+        if student["name"].lower() == name.lower():
+            print("\nStudent Found!")
+            print("Name   :", student["name"])
+            print("Age    :", student["age"])
+            print("Course :", student["course"])
+            print("Marks  :", student["marks"])
+            found = True
+            break
+
+    if not found:
+        print("\nStudent not found.")
+
+
+def update_student():
+    name = input("Enter student name to update: ")
+
+    for student in students:
+        if student["name"].lower() == name.lower():
+
+            print("\nEnter new details:")
+
+            student["age"] = int(input("Enter new age: "))
+            student["course"] = input("Enter new course: ")
+            student["marks"] = float(input("Enter new marks: "))
+
+            print("\nStudent updated successfully!")
+            return
+
+    print("\nStudent not found.")
+
+
+def delete_student():
+    name = input("Enter student name to delete: ")
+
+    for student in students:
+        if student["name"].lower() == name.lower():
+            students.remove(student)
+            print("\nStudent deleted successfully!")
+            return
+
+    print("\nStudent not found.")
+
+
+def main():
+    while True:
+
+        print("\n==============================")
+        print("   STUDENT MANAGEMENT SYSTEM")
+        print("==============================")
+        print("1. Add Student")
+        print("2. View Students")
+        print("3. Search Student")
+        print("4. Update Student")
+        print("5. Delete Student")
+        print("6. Exit")
+
+        choice = input("\nEnter your choice: ")
+
+        if choice == "1":
+            add_student()
+
+        elif choice == "2":
+            view_students()
+
+        elif choice == "3":
+            search_student()
+
+        elif choice == "4":
+            update_student()
+
+        elif choice == "5":
+            delete_student()
+
+        elif choice == "6":
+            print("\nThank you for using the system!")
+            break
+
+        else:
+            print("\nInvalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
