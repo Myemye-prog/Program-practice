@@ -1,0 +1,449 @@
+"""
+Spotify Music Explorer
+Author: Your Name
+
+Features:
+- Spotify API connection
+- Search tracks
+- Search artists
+- Search albums
+- Display details
+- Open results in Spotify
+
+Install:
+    pip install spotipy python-dotenv
+
+Create a .env file:
+    SPOTIFY_CLIENT_ID=your_client_id
+    SPOTIFY_CLIENT_SECRET=your_client_secret
+"""
+
+import os
+import webbrowser
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+from dotenv import load_dotenv
+
+# --------------------------------------------------
+# LOAD SPOTIFY CREDENTIALS
+# --------------------------------------------------
+
+load_dotenv()
+
+CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
+CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
+
+if not CLIENT_ID or not CLIENT_SECRET:
+    print("\nERROR: Spotify credentials not found.")
+    print("Create a .env file containing:")
+    print("SPOTIFY_CLIENT_ID=your_client_id")
+    print("SPOTIFY_CLIENT_SECRET=your_client_secret")
+    exit()
+
+# --------------------------------------------------
+# CONNECT TO SPOTIFY
+# --------------------------------------------------
+
+try:
+    auth_manager = SpotifyClientCredentials(
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET
+    )
+
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+except Exception as e:
+    print("Spotify connection failed:", e)
+    exit()
+
+# --------------------------------------------------
+# DISPLAY HEADER
+# --------------------------------------------------
+
+def header():
+    print("\n" + "=" * 60)
+    print("              SPOTIFY MUSIC EXPLORER")
+    print("=" * 60)
+
+
+# --------------------------------------------------
+# SEARCH TRACKS
+# --------------------------------------------------
+
+def search_tracks():
+
+    query = input("\nEnter song name: ").strip()
+
+    if not query:
+        print("Please enter a song name.")
+        return
+
+    try:
+        results = spotify.search(
+            q=query,
+            type="track",
+            limit=10
+        )
+
+        tracks = results["tracks"]["items"]
+
+        if not tracks:
+            print("No songs found.")
+            return
+
+        print("\nSEARCH RESULTS")
+        print("-" * 60)
+
+        for i, track in enumerate(tracks, start=1):
+
+            artists = ", ".join(
+                artist["name"]
+                for artist in track["artists"]
+            )
+
+            print(f"{i}. {track['name']}")
+            print(f"   Artist : {artists}")
+            print(f"   Album  : {track['album']['name']}")
+            print()
+
+        choice = input(
+            "Enter result number to open in Spotify "
+            "(or press Enter to return): "
+        ).strip()
+
+        if choice.isdigit():
+
+            number = int(choice)
+
+            if 1 <= number <= len(tracks):
+
+                url = tracks[number - 1]["external_urls"]["spotify"]
+
+                print("\nOpening Spotify...")
+                webbrowser.open(url)
+
+            else:
+                print("Invalid result number.")
+
+    except Exception as e:
+        print("Error:", e)
+
+
+# --------------------------------------------------
+# SEARCH ARTISTS
+# --------------------------------------------------
+
+def search_artists():
+
+    query = input("\nEnter artist name: ").strip()
+
+    if not query:
+        print("Please enter an artist name.")
+        return
+
+    try:
+
+        results = spotify.search(
+            q=query,
+            type="artist",
+            limit=10
+        )
+
+        artists = results["artists"]["items"]
+
+        if not artists:
+            print("No artists found.")
+            return
+
+        print("\nARTIST RESULTS")
+        print("-" * 60)
+
+        for i, artist in enumerate(artists, start=1):
+
+            genres = ", ".join(
+                artist["genres"][:3]
+            )
+
+            print(f"{i}. {artist['name']}")
+            print(f"   Followers : {artist['followers']['total']:,}")
+            print(f"   Genres    : {genres if genres else 'N/A'}")
+            print()
+
+        choice = input(
+            "Enter result number to open in Spotify "
+            "(or press Enter to return): "
+        ).strip()
+
+        if choice.isdigit():
+
+            number = int(choice)
+
+            if 1 <= number <= len(artists):
+
+                url = artists[number - 1]["external_urls"]["spotify"]
+
+                print("\nOpening Spotify...")
+                webbrowser.open(url)
+
+            else:
+                print("Invalid result number.")
+
+    except Exception as e:
+        print("Error:", e)
+
+
+# --------------------------------------------------
+# SEARCH ALBUMS
+# --------------------------------------------------
+
+def search_albums():
+
+    query = input("\nEnter album name: ").strip()
+
+    if not query:
+        print("Please enter an album name.")
+        return
+
+    try:
+
+        results = spotify.search(
+            q=query,
+            type="album",
+            limit=10
+        )
+
+        albums = results["albums"]["items"]
+
+        if not albums:
+            print("No albums found.")
+            return
+
+        print("\nALBUM RESULTS")
+        print("-" * 60)
+
+        for i, album in enumerate(albums, start=1):
+
+            artists = ", ".join(
+                artist["name"]
+                for artist in album["artists"]
+            )
+
+            print(f"{i}. {album['name']}")
+            print(f"   Artist : {artists}")
+            print(f"   Year   : {album['release_date']}")
+            print(f"   Tracks : {album['total_tracks']}")
+            print()
+
+        choice = input(
+            "Enter result number to open in Spotify "
+            "(or press Enter to return): "
+        ).strip()
+
+        if choice.isdigit():
+
+            number = int(choice)
+
+            if 1 <= number <= len(albums):
+
+                url = albums[number - 1]["external_urls"]["spotify"]
+
+                print("\nOpening Spotify...")
+                webbrowser.open(url)
+
+            else:
+                print("Invalid result number.")
+
+    except Exception as e:
+        print("Error:", e)
+
+
+# --------------------------------------------------
+# TOP TRACKS BY ARTIST
+# --------------------------------------------------
+
+def artist_top_tracks():
+
+    artist_name = input("\nEnter artist name: ").strip()
+
+    if not artist_name:
+        print("Please enter an artist name.")
+        return
+
+    try:
+
+        results = spotify.search(
+            q=artist_name,
+            type="artist",
+            limit=1
+        )
+
+        artists = results["artists"]["items"]
+
+        if not artists:
+            print("Artist not found.")
+            return
+
+        artist = artists[0]
+
+        print(f"\nArtist: {artist['name']}")
+        print("-" * 60)
+
+        top_tracks = spotify.artist_top_tracks(
+            artist["id"],
+            country="IN"
+        )
+
+        tracks = top_tracks["tracks"]
+
+        if not tracks:
+            print("No top tracks found.")
+            return
+
+        for i, track in enumerate(tracks, start=1):
+
+            print(f"{i}. {track['name']}")
+            print(f"   Album: {track['album']['name']}")
+            print()
+
+        choice = input(
+            "Enter result number to open in Spotify "
+            "(or press Enter to return): "
+        ).strip()
+
+        if choice.isdigit():
+
+            number = int(choice)
+
+            if 1 <= number <= len(tracks):
+
+                url = tracks[number - 1]["external_urls"]["spotify"]
+
+                webbrowser.open(url)
+
+            else:
+                print("Invalid result number.")
+
+    except Exception as e:
+        print("Error:", e)
+
+
+# --------------------------------------------------
+# FEATURED PLAYLISTS
+# --------------------------------------------------
+
+def search_playlists():
+
+    query = input("\nEnter playlist name: ").strip()
+
+    if not query:
+        print("Please enter a playlist name.")
+        return
+
+    try:
+
+        results = spotify.search(
+            q=query,
+            type="playlist",
+            limit=10
+        )
+
+        playlists = results["playlists"]["items"]
+
+        if not playlists:
+            print("No playlists found.")
+            return
+
+        print("\nPLAYLIST RESULTS")
+        print("-" * 60)
+
+        valid_playlists = []
+
+        for playlist in playlists:
+
+            if playlist is None:
+                continue
+
+            valid_playlists.append(playlist)
+
+        for i, playlist in enumerate(valid_playlists, start=1):
+
+            print(f"{i}. {playlist['name']}")
+            print(f"   Owner: {playlist['owner']['display_name']}")
+            print()
+
+        choice = input(
+            "Enter result number to open in Spotify "
+            "(or press Enter to return): "
+        ).strip()
+
+        if choice.isdigit():
+
+            number = int(choice)
+
+            if 1 <= number <= len(valid_playlists):
+
+                url = valid_playlists[number - 1][
+                    "external_urls"
+                ]["spotify"]
+
+                webbrowser.open(url)
+
+            else:
+                print("Invalid result number.")
+
+    except Exception as e:
+        print("Error:", e)
+
+
+# --------------------------------------------------
+# MAIN MENU
+# --------------------------------------------------
+
+def main():
+
+    while True:
+
+        header()
+
+        print("1. Search Songs")
+        print("2. Search Artists")
+        print("3. Search Albums")
+        print("4. Artist Top Tracks")
+        print("5. Search Playlists")
+        print("6. Exit")
+
+        print("-" * 60)
+
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            search_tracks()
+
+        elif choice == "2":
+            search_artists()
+
+        elif choice == "3":
+            search_albums()
+
+        elif choice == "4":
+            artist_top_tracks()
+
+        elif choice == "5":
+            search_playlists()
+
+        elif choice == "6":
+            print("\nThank you for using Spotify Music Explorer!")
+            break
+
+        else:
+            print("\nInvalid choice. Please try again.")
+
+        input("\nPress Enter to continue...")
+
+
+# --------------------------------------------------
+# PROGRAM START
+# --------------------------------------------------
+
+if __name__ == "__main__":
+    main()
